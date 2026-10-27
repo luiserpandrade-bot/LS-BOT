@@ -23,4 +23,10 @@ class Validadores {
     final largo = valor?.length ?? 0;
     return (largo >= 8 && largo <= 72) ? null : 'La contraseña debe tener entre 8 y 72 caracteres';
   }
+
+  /// De 5 a 500 caracteres, sin contar espacios al inicio ni al final.
+  static String? duda(String? valor) {
+    final largo = valor?.trim().length ?? 0;
+    return (largo >= 5 && largo <= 500) ? null : 'La duda debe tener entre 5 y 500 caracteres';
+  }
 }

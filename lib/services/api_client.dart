@@ -65,6 +65,10 @@ class ApiClient {
     ),
   );
 
+  Future<Response<dynamic>> patch(String ruta, {Object? data}) => _enviar(() => dio.patch(ruta, data: data));
+
+  Future<Response<dynamic>> delete(String ruta) => _enviar(() => dio.delete(ruta));
+
   /// Único try/catch: todo error de `dio` sale como `ApiException`.
   Future<Response<dynamic>> _enviar(Future<Response<dynamic>> Function() peticion) async {
     try {

@@ -4,6 +4,7 @@ import '../models/usuario.dart';
 import '../services/api_client.dart';
 import '../services/auth_service.dart';
 import '../services/token_storage.dart';
+import 'dudas_controller.dart';
 import 'fichas_controller.dart';
 
 /// Estado de la sesión de toda la app. `usuario` es null cuando no hay sesión.
@@ -108,13 +109,14 @@ class AuthController extends GetxController {
     if (Get.key.currentState != null) Get.until((ruta) => ruta.isFirst);
   }
 
-  /// Borra el token (seguro y en memoria) y el estado de las fichas: la
-  /// próxima sesión crea un `FichasController` nuevo y carga desde cero.
+  /// Borra el token (seguro y en memoria) y el estado de las fichas y sus
+  /// dudas: la próxima sesión crea controladores nuevos y carga desde cero.
   Future<void> cerrarSesion() async {
     await _almacen.borrar();
     _api.token = null;
     usuario.value = null;
     mensajeError.value = '';
     if (Get.isRegistered<FichasController>()) Get.delete<FichasController>(force: true);
+    if (Get.isRegistered<DudasController>()) Get.delete<DudasController>(force: true);
   }
 }

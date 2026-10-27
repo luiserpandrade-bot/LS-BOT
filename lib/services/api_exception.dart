@@ -53,7 +53,7 @@ class ApiException implements Exception {
         if (ruta == rutaLogin && detail != null) return ApiException(detail, statusCode: codigo);
         return ApiException(mensajeSesionCaducada, statusCode: codigo);
       case 403:
-        return ApiException(mensajeSinPermiso, statusCode: codigo);
+        return ApiException(detail ?? mensajeSinPermiso, statusCode: codigo);
       case 404:
         return ApiException(detail ?? mensajeNoEncontrado, statusCode: codigo);
       case 422:
