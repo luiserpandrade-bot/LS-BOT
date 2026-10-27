@@ -31,13 +31,12 @@ LS-bot es una app Flutter (Android) para el aprendizaje de Diseño Electrónico,
 ```bash
 flutter analyze
 flutter test
-
+```
 Si cambias algo en `backend/`:
 
 ```powershell
 cd backend
 docker compose run --rm api python -m pytest -q
-```
 ```
 
 Los dos deben terminar sin errores. Si fallan, corrige el código; no desactives el análisis ni borres pruebas para que pasen.
