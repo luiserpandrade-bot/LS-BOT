@@ -1,17 +1,9 @@
-# CI — integración continua (Sesión 10).
+# CI — integración continua de LS-bot.
 #
-# Qué hace: cada vez que subes código a GitHub (push a cualquier rama) o abres un
-# pull request, una máquina limpia analiza el código y ejecuta las pruebas. Si algo
-# falla, GitHub marca la subida con una ✗ roja y se ve ANTES de integrar el cambio.
-#
-# Es la «puerta de calidad» del proyecto. Sirve igual para el código que escribes
-# tú que para el que escribe un agente de IA: lo que no pasa la puerta, no entra.
-#
-# Si una subida no dispara la ejecución (a veces pasa en un repositorio recién creado),
-# puedes lanzarla a mano desde la pestaña Actions.
-#
-# Este workflow NO publica nada. La publicación del APK (entrega continua) está en
-# release-apk.yml y se dispara con una etiqueta de versión.
+# En cada push (cualquier rama) y en cada pull request, una máquina limpia:
+#   1. app Flutter: analiza el código y ejecuta las pruebas;
+#   2. backend FastAPI: ejecuta las pruebas con SQLite en memoria (sin Docker ni internet).
+# Si algo falla, GitHub marca el cambio con una ✗ roja antes de integrarlo.
 
 name: CI
 
@@ -19,18 +11,18 @@ on:
   push:
     branches: ['**']
   pull_request:
-  workflow_dispatch: # también se puede ejecutar a mano: pestaña Actions → «CI» → «Run workflow»
+  workflow_dispatch:
 
 permissions:
-  contents: read # este workflow solo lee el código
+  contents: read
 
-# Si subes dos veces seguidas a la misma rama, se cancela la ejecución anterior.
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   verificar:
+    name: App Flutter
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -57,3 +49,27 @@ jobs:
 
       - name: Ejecutar las pruebas
         run: flutter test
+
+  backend:
+    name: Backend FastAPI
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v7
+
+      - name: Instalar Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar las pruebas del backend
+        run: python -m pytest -q

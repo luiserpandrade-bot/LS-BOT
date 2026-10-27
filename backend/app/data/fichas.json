@@ -1,0 +1,1800 @@
+[
+  {
+    "codigo": "DE-T01",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 1,
+    "unidad_nombre": "Generación de esquemáticos y componentes",
+    "sesion": "T1",
+    "titulo": "La PCB y las herramientas CAD",
+    "silabo": "1.1 Introducción a herramientas CAD para el diseño electrónico",
+    "ideas_clave": [
+      "La PCB es soporte mecánico y conexión eléctrica: su diseño define costo, confiabilidad y EMC.",
+      "Se clasifica por aplicación (clases IPC 1, 2, 3), por capas y por sustrato.",
+      "El diseño sigue un flujo iterativo: concepto, captura, layout, prototipo y fabricación.",
+      "Altium Designer integra esquemático, PCB, simulación y 3D en un solo proyecto."
+    ],
+    "formulas": [
+      "Clases IPC: 1 (consumo), 2 (profesional), 3 (alta confiabilidad).",
+      "Flujo: concepto → captura → layout → prototipo → fabricación (iterativo)."
+    ],
+    "preguntas": [
+      "¿Qué ventajas tiene una PCB frente al cableado punto a punto?",
+      "¿Cuándo conviene una tarjeta multicapa en lugar de una de doble cara?",
+      "¿En qué etapa del flujo se eligen las huellas de los componentes?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T02",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 1,
+    "unidad_nombre": "Generación de esquemáticos y componentes",
+    "sesion": "T2",
+    "titulo": "Normas de dibujo, simbología y librerías",
+    "silabo": "1.2 Normas en el dibujo de esquemáticos · 1.3 Simbología normalizada · 1.4 Creación de componentes y librerías",
+    "ideas_clave": [
+      "Un esquemático legible sigue reglas: flujo de señal, alimentación arriba, uniones en T y cajetín.",
+      "IEC 60617 y ANSI/IEEE 315 son los dos sistemas de símbolos; no se mezclan.",
+      "Los designadores (R, C, U, J…) enlazan esquemático, PCB y lista de materiales.",
+      "Un componente completo tiene símbolo, huella IPC-7351, modelo 3D, parámetros y modelo de simulación."
+    ],
+    "formulas": [
+      "IEC 60617 (Europa/Latinoamérica) y ANSI/IEEE 315 (EE. UU.): no se mezclan.",
+      "Huella IPC-7351: CAPC2012X125N = chip capacitor 2.0 × 1.2 mm, altura 1.25 mm, densidad nominal.",
+      "Componente completo: símbolo + huella + modelo 3D + parámetros + modelo SPICE."
+    ],
+    "preguntas": [
+      "¿Por qué se evitan los cruces de cuatro vías en un esquemático?",
+      "¿Qué describe la huella CAPC2012X125N?",
+      "¿Qué ventaja tiene una librería integrada frente a librerías separadas?"
+    ],
+    "normas": [
+      "ANSI/IEEE 315",
+      "IEC 60617",
+      "IPC-7351"
+    ],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T03",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 1,
+    "unidad_nombre": "Generación de esquemáticos y componentes",
+    "sesion": "T3",
+    "titulo": "Esquemáticos por bloques e introducción al análisis",
+    "silabo": "1.5 Organización de esquemáticos en bloques · 1.6 Introducción al análisis: AC-sweep, DC-sweep, transitorio, Montecarlo, térmico",
+    "ideas_clave": [
+      "El diseño jerárquico organiza el esquemático como un diagrama de bloques reutilizable.",
+      "DC sweep y punto de operación describen la polarización; AC sweep, la respuesta en frecuencia.",
+      "El transitorio muestra formas de onda en el tiempo; Montecarlo, el efecto de las tolerancias.",
+      "Simular antes del layout evita rehacer tarjetas: el error más barato es el que se detecta en el esquemático."
+    ],
+    "formulas": [
+      "fc = 1 / (2π R C).",
+      "DC sweep → polarización; AC sweep → Bode; transitorio → formas de onda; Montecarlo → tolerancias."
+    ],
+    "preguntas": [
+      "¿Qué análisis usarías para hallar la frecuencia de corte de un filtro?",
+      "Calcula fc para R = 2.2 kΩ y C = 10 nF.",
+      "¿Qué información da un Montecarlo que no da una simulación nominal?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T04",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 2,
+    "unidad_nombre": "Técnicas básicas en el diseño del layout del PCB",
+    "sesion": "T4",
+    "titulo": "Del esquemático a la tarjeta: tipos de PCB y encapsulados",
+    "silabo": "2.1 Transferencia de esquemático a PCB (Annotate) · 2.2 Tipos de tarjetas impresas · 2.3 Encapsulados y parámetros críticos",
+    "ideas_clave": [
+      "La transferencia exige designadores únicos, huellas asignadas y órdenes de cambio validadas.",
+      "Una tarjeta de 4 capas con plano de tierra mejora integridad de señal y EMC.",
+      "FR-4 de 1.6 mm y cobre de 35 µm son el punto de partida; se cambian según potencia y frecuencia.",
+      "El encapsulado define reglas de ruteo, disipación, montaje e inspección."
+    ],
+    "formulas": [
+      "Transferencia: Annotate → huellas → Design → Import Changes (ECO).",
+      "FR-4 1.6 mm, cobre 35 µm (1 oz) como punto de partida; 4 capas = planos de GND y VCC."
+    ],
+    "preguntas": [
+      "¿Qué ocurre si se transfiere a PCB un componente sin huella?",
+      "¿Por qué una tarjeta de 4 capas emite menos ruido que una de 2?",
+      "Nombra dos ventajas y una desventaja de un QFN frente a un SOIC."
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T05",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 2,
+    "unidad_nombre": "Técnicas básicas en el diseño del layout del PCB",
+    "sesion": "T5",
+    "titulo": "Normativa de diseño de PCB: IPC-2221B",
+    "silabo": "2.4 IPC-2221B · 2.4.1 Clearance · 2.4.2 Ancho y espesor de pistas · 2.4.3 Resistencia, impedancia y disipación de calor",
+    "ideas_clave": [
+      "La separación entre conductores depende del voltaje y de si la capa es interna, externa o recubierta.",
+      "El ancho de pista se calcula con la corriente y el aumento de temperatura aceptado.",
+      "La resistencia de la pista produce caídas de voltaje que crecen con la temperatura.",
+      "La impedancia depende del ancho y de la distancia al plano; la temperatura de unión, de la cadena de resistencias térmicas."
+    ],
+    "formulas": [
+      "IPC-2221B ancho: I = k · ΔT^0.44 · A^0.725 (k = 0.048 externa, 0.024 interna; A en mil²).",
+      "R = ρ L / (w t), ρ(Cu) = 1.72 × 10⁻⁸ Ω·m.",
+      "Microstrip: Z₀ = 87/√(εr + 1.41) · ln[5.98 h / (0.8 w + t)].",
+      "Tj = Ta + P · Rθja."
+    ],
+    "preguntas": [
+      "¿Qué separación usarías entre 48 V y 5 V en una capa externa sin recubrir?",
+      "¿Qué ancho necesita 3 A con ΔT = 20 °C en cobre de 35 µm?",
+      "¿Qué temperatura de unión tiene un regulador de 5 W con Rθja = 50 °C/W a 25 °C?"
+    ],
+    "normas": [
+      "IPC-2221B"
+    ],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T06",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 3,
+    "unidad_nombre": "Análisis de integridad de señales en circuito impreso",
+    "sesion": "T6",
+    "titulo": "Integridad de señal, ruido y líneas de transmisión",
+    "silabo": "3.1 Introducción a integridad de señales · 3.2 Ruido en circuitos electrónicos · 3.3 Conceptos de línea de transmisión en circuitos impresos",
+    "ideas_clave": [
+      "La integridad de señal depende de los flancos: el ancho de banda real es ≈ 0.35/tr.",
+      "El ruido térmico, de disparo y 1/f es intrínseco; la interferencia y la conmutación se controlan con el diseño.",
+      "Una pista más larga que tr/6 es una línea de transmisión y refleja si la carga no coincide con Z₀.",
+      "La terminación y un plano de retorno continuo evitan reflexiones y oscilaciones."
+    ],
+    "formulas": [
+      "Ancho de banda del flanco: BW ≈ 0.35 / tr.",
+      "Longitud crítica ≈ tr / (6 · tpd), tpd ≈ 150 ps/in (6 in/ns) en FR-4.",
+      "Γ = (ZL − Z₀) / (ZL + Z₀)."
+    ],
+    "preguntas": [
+      "¿Cuál es la longitud crítica para un flanco de 2 ns en FR-4?",
+      "Calcula Γ para una línea de 50 Ω con carga de 25 Ω.",
+      "¿Por qué la terminación serie no consume corriente en continua?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T07",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 3,
+    "unidad_nombre": "Análisis de integridad de señales en circuito impreso",
+    "sesion": "T7",
+    "titulo": "Subsistemas y consideraciones de voltaje, corriente y frecuencia",
+    "silabo": "3.4 Subsistemas: alimentación, analógico, digital, potencia · 3.5 Consideraciones de voltaje, corriente y frecuencia",
+    "ideas_clave": [
+      "La tarjeta se divide en alimentación, analógico, digital y potencia, cada uno con su zona y su retorno.",
+      "El desacople se ubica junto a cada pin de alimentación con el lazo más corto posible.",
+      "Voltaje → separación; corriente → ancho y calor; frecuencia → impedancia y retornos.",
+      "El efecto pelicular y la inductancia hacen que a alta frecuencia importe más la geometría que el ancho."
+    ],
+    "formulas": [
+      "100 nF junto a cada pin de alimentación; lazo mínimo.",
+      "V = L · di/dt.",
+      "Profundidad pelicular δ = √(ρ / (π f μ)) ≈ 66 µm / √f(MHz)."
+    ],
+    "preguntas": [
+      "¿Dónde ubicarías el ADC en una tarjeta de señales mixtas?",
+      "¿Cuánto ruido produce una pista de 5 nH con di/dt = 50 mA/ns?",
+      "¿A qué frecuencia la profundidad pelicular iguala los 35 µm del cobre?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T08",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 4,
+    "unidad_nombre": "Consideraciones de EMC y EMI en el diseño de circuitos impresos",
+    "sesion": "T8",
+    "titulo": "Fundamentos de compatibilidad e interferencia electromagnética",
+    "silabo": "4.1 Fundamentos de EMC y EMI · 4.2 Influencia del tipo de encapsulado: montaje superficial frente a agujero pasante",
+    "ideas_clave": [
+      "EMC es no perturbar y no ser perturbado; EMI es la perturbación.",
+      "Todo problema tiene fuente, camino y víctima; basta con atacar uno.",
+      "La emisión de un lazo crece con f² y con su área: el retorno debe ir junto a la señal.",
+      "Los encapsulados SMD reducen inductancia y área de lazo."
+    ],
+    "formulas": [
+      "E ≈ 1.32 × 10⁻¹⁴ · f² · A · I / r (V/m).",
+      "Fuente, camino, víctima; CISPR 32 clase A (industrial) y B (doméstico)."
+    ],
+    "preguntas": [
+      "¿Cuántos dB baja la emisión si el área del lazo se reduce a la mitad?",
+      "Nombra un acoplamiento capacitivo y uno inductivo en tu proyecto.",
+      "¿Qué clase de CISPR 32 aplica a un equipo doméstico?"
+    ],
+    "normas": [
+      "CISPR 32"
+    ],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T09",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 4,
+    "unidad_nombre": "Consideraciones de EMC y EMI en el diseño de circuitos impresos",
+    "sesion": "T9",
+    "titulo": "Pasivos no ideales, blindaje y filtros EMI",
+    "silabo": "4.3 Efectos no ideales en pasivos: ESR, ESL, coeficiente de temperatura, autorresonancia · 4.4 Blindaje · 4.5 Filtros EMI",
+    "ideas_clave": [
+      "Todo pasivo tiene parásitos: un capacitor es inductivo por encima de su SRF.",
+      "C0G es estable; X7R y Y5V varían con la temperatura y el voltaje.",
+      "El blindaje funciona si se conecta bien: 360° y a tierra según la frecuencia.",
+      "Los filtros se eligen según el modo: diferencial (LC, π) o común (choque)."
+    ],
+    "formulas": [
+      "SRF = 1 / (2π √(L C)).",
+      "C0G/NP0 estable; X7R ±15 %; Y5V hasta −82 %.",
+      "Blindaje de 360°; filtros de modo diferencial (LC, π) y de modo común (choque)."
+    ],
+    "preguntas": [
+      "Calcula la SRF de un capacitor de 1 µF con ESL de 1 nH.",
+      "¿Qué dieléctrico usarías en un filtro de precisión?",
+      "¿Por qué los cables radian sobre todo por modo común?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T10",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 4,
+    "unidad_nombre": "Consideraciones de EMC y EMI en el diseño de circuitos impresos",
+    "sesion": "T10",
+    "titulo": "Transitorios, protecciones y sistemas de tierra",
+    "silabo": "4.6 Transitorios y protecciones · 4.7 Sistemas de tierra",
+    "ideas_clave": [
+      "ESD, ráfagas y sobretensiones tienen formas de onda normalizadas en la serie IEC 61000-4.",
+      "La protección va junto al conector: TVS para rapidez, MOV y GDT para energía.",
+      "La tierra tiene impedancia: el diseño define por dónde regresa cada corriente.",
+      "Punto único en baja frecuencia, multipunto en alta, híbrida en sistemas mixtos."
+    ],
+    "formulas": [
+      "IEC 61000-4-2 ESD: contacto 2/4/6/8 kV (8 kV ≈ 30 A pico, tr < 1 ns); 61000-4-4 ráfagas; 61000-4-5 surge 1.2/50 µs.",
+      "TVS (rápido), MOV y GDT (energía), junto al conector.",
+      "Tierra: punto único (< 1 MHz), multipunto (> 10 MHz), híbrida (mixtos)."
+    ],
+    "preguntas": [
+      "¿Qué corriente pico produce una ESD de 8 kV por contacto?",
+      "¿Por qué un varistor no es buena protección contra ESD en datos rápidos?",
+      "¿Qué topología de tierra usarías en un amplificador de audio?"
+    ],
+    "normas": [
+      "IEC 61000-4-2"
+    ],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T11",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 4,
+    "unidad_nombre": "Consideraciones de EMC y EMI en el diseño de circuitos impresos",
+    "sesion": "T11",
+    "titulo": "Diafonía y técnicas de diseño frente a EMI/EMC",
+    "silabo": "4.8 Crosstalk · 4.9 Técnicas de diseño frente a EMI/EMC",
+    "ideas_clave": [
+      "La diafonía cae rápidamente con la separación y con un plano cercano.",
+      "La regla 3W y las guardas protegen las pistas sensibles.",
+      "Planos continuos, partición y desacople son las tres técnicas con más efecto.",
+      "Una lista de verificación evita errores repetidos en cada diseño."
+    ],
+    "formulas": [
+      "Regla 3W: separación entre centros ≥ 3 veces el ancho de pista.",
+      "Planos continuos, partición por subsistemas y desacople: las tres técnicas de mayor efecto."
+    ],
+    "preguntas": [
+      "Con pistas de 0.2 mm, ¿qué separación entre centros pide la regla 3W?",
+      "¿Por qué no se debe rutear una señal rápida sobre un corte del plano?",
+      "Nombra tres técnicas de EMC aplicadas en tu proyecto."
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T12",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 4,
+    "unidad_nombre": "Consideraciones de EMC y EMI en el diseño de circuitos impresos",
+    "sesion": "T12",
+    "titulo": "Diagnóstico de EMI y ensayos de EMC",
+    "silabo": "4.10 Diagnóstico de EMI y soluciones · 4.11 Medidas y ensayos para EMC",
+    "ideas_clave": [
+      "El diagnóstico sigue un orden: reproducir, localizar, identificar, corregir y verificar.",
+      "Las sondas de campo cercano ubican la fuente; la pinza de corriente, el problema en los cables.",
+      "Los ensayos de emisión e inmunidad están normalizados en CISPR e IEC 61000-4.",
+      "La pre-certificación con margen reduce costos y repeticiones."
+    ],
+    "formulas": [
+      "Diagnóstico: reproducir → localizar (sondas de campo cercano) → identificar → corregir → verificar.",
+      "Criterios de inmunidad: A normal, B degradación temporal, C pérdida que requiere intervención, D daño."
+    ],
+    "preguntas": [
+      "¿Qué instrumento usarías para saber si un cable radia por modo común?",
+      "¿Qué criterio de desempeño es \"se reinicia y vuelve a funcionar solo\"?",
+      "Un pico aparece cada 8 MHz hasta 400 MHz: ¿qué fuente sospechas?"
+    ],
+    "normas": [
+      "IEC 61000-4"
+    ],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T13",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 5,
+    "unidad_nombre": "Fabricación de tarjetas de circuito impreso",
+    "sesion": "T13",
+    "titulo": "Archivos de fabricación y técnicas de fabricación",
+    "silabo": "5.1 Generación de archivos de fabricación · 5.2 Técnicas de fabricación de tarjetas",
+    "ideas_clave": [
+      "El fabricante necesita Gerber, perforación, plano de fabricación y, para montaje, pick and place y BOM.",
+      "La tarjeta multicapa se fabrica por capas: imagen, grabado, laminado, perforación, metalizado y acabado.",
+      "ENIG es plano y apto para paso fino; HASL es económico pero irregular.",
+      "La clase IPC (1, 2, 3) define tolerancias y criterios de aceptación de todo el proceso."
+    ],
+    "formulas": [
+      "Gerber RS-274X/X2 (una imagen por capa), NC Drill (Excellon), pick and place, BOM, plano Draftsman.",
+      "Acabados: HASL (económico, irregular), ENIG (plano, BGA/paso fino), OSP."
+    ],
+    "preguntas": [
+      "¿Qué archivo indica dónde van las perforaciones?",
+      "¿Qué acabado elegirías para una tarjeta con BGA?",
+      "¿Qué clase IPC corresponde a un monitor de signos vitales?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "DE-T14",
+    "materia": "diseno_electronico",
+    "materia_nombre": "Diseño Electrónico",
+    "unidad": 5,
+    "unidad_nombre": "Fabricación de tarjetas de circuito impreso",
+    "sesion": "T14",
+    "titulo": "Técnicas de montaje y gabinetes",
+    "silabo": "5.3 Técnicas de montaje · 5.4 Gabinetes y contenedores de PCB, grados IP y NEMA",
+    "ideas_clave": [
+      "El montaje SMT sigue la secuencia pasta, inspección, ubicación, reflujo e inspección automática.",
+      "El perfil de reflujo y la huella definen la calidad de cada unión.",
+      "J-STD-001 define el proceso; IPC-A-610 la aceptación según la clase.",
+      "El gabinete se elige por ambiente (IP o NEMA), calor, EMC y montaje."
+    ],
+    "formulas": [
+      "SMT: pasta → SPI → pick & place → reflujo (pico 240–250 °C) → AOI.",
+      "J-STD-001 (proceso) e IPC-A-610 (aceptación por clase).",
+      "IP65: 6 = hermético al polvo; 5 = chorros de agua. NEMA 4X: lavado a presión y corrosión."
+    ],
+    "preguntas": [
+      "¿Qué significa IP65?",
+      "¿Qué defecto produce un pad de 0402 conectado sin alivio a un polígono grande?",
+      "¿Qué tipo NEMA usarías en una planta con lavado a presión?"
+    ],
+    "normas": [
+      "IPC-A-610",
+      "J-STD-001"
+    ],
+    "fuente": "Guía de estudio por sesión — Diseño Electrónico, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S01",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 1,
+    "unidad_nombre": "Arquitectura de los microprocesadores y microcontroladores",
+    "sesion": "S1",
+    "titulo": "El sistema microprocesado y la CPU",
+    "silabo": "1.1 Arquitectura general de un sistema microprocesado · 1.3 Unidades funcionales",
+    "ideas_clave": [
+      "Un sistema microprocesado tiene CPU, memoria y E/S unidas por los buses de direcciones, datos y control.",
+      "Un microcontrolador integra todo en un chip (CPU + Flash + RAM + periféricos): es un computador de prestaciones limitadas dedicado a una tarea.",
+      "La CPU repite el ciclo buscar → decodificar → ejecutar; la ALU realiza las operaciones aritméticas y lógicas y actualiza las banderas.",
+      "El reloj marca el ritmo; el reset lleva la CPU a un estado conocido; el watchdog y el brown-out protegen contra cuelgues y caídas de tensión."
+    ],
+    "formulas": [
+      "Tcy = 4 / Fosc en el PIC16 (cuatro ciclos de oscilador por instrucción)."
+    ],
+    "preguntas": [
+      "¿Qué diferencia a un microcontrolador de un microprocesador?",
+      "Nombre los tres buses de un sistema microprocesado y la función de cada uno.",
+      "¿Qué hace la unidad de control durante la fase de decodificación?",
+      "¿Para qué sirve el brown-out reset?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S02",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S2",
+    "titulo": "Herramientas de desarrollo para microcontroladores",
+    "silabo": "2.1 Herramientas de desarrollo · 2.1.1 Compiladores y depuradores",
+    "ideas_clave": [
+      "Desarrollar con µC sigue un ciclo: requisitos, hardware, algoritmo, código, simulación y prueba real.",
+      "El diagrama de flujo o el pseudocódigo se hace antes de escribir el código.",
+      "Se usa C con XC8 en MPLAB X; MCC genera la configuración de periféricos.",
+      "El SNAP graba por ICSP con 5 hilos (MCLR, VDD, GND, PGD, PGC); LVP debe estar activado."
+    ],
+    "formulas": [
+      "El compilador genera el archivo .hex que se graba en el µC.",
+      "No usar RB6 y RB7 como E/S mientras se depura."
+    ],
+    "preguntas": [
+      "¿Qué archivo genera el compilador y se graba en el µC?",
+      "¿Qué pines del PIC no deben usarse como E/S al depurar?",
+      "¿Para qué sirve MCC?",
+      "¿Qué ventaja tiene simular en Proteus antes de grabar?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S03",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 1,
+    "unidad_nombre": "Arquitectura de los microprocesadores y microcontroladores",
+    "sesion": "S3",
+    "titulo": "Juego de instrucciones, registros y buses",
+    "silabo": "1.2 ISC y arquitecturas · 1.3 Unidades funcionales y registros · 1.4 Procesadores x86, compatibles y ARM",
+    "ideas_clave": [
+      "La ISA define lo que la CPU sabe hacer; CISC usa instrucciones complejas y RISC instrucciones simples de longitud fija.",
+      "x86 domina el PC; ARM, los celulares y los µC de 32 bits; RISC-V es la ISA abierta que más crece.",
+      "W, STATUS, PC, la pila y BSR son los registros que más se usan al programar el PIC16.",
+      "Tcy = 4/Fosc; los saltos tardan 2 ciclos porque vacían el pipeline."
+    ],
+    "formulas": [
+      "Fosc = 32 MHz → Tcy = 125 ns → 8 MIPS.",
+      "Con n líneas de dirección se direccionan 2ⁿ posiciones."
+    ],
+    "preguntas": [
+      "¿Por qué un procesador RISC facilita el pipeline?",
+      "¿Cuántas posiciones direcciona una CPU con 20 líneas de dirección?",
+      "¿Cuántos MIPS da un PIC16 con cristal de 20 MHz?",
+      "¿Qué bandera del registro STATUS se activa al restar dos números iguales?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S04",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S4",
+    "titulo": "Programación embebida en C y puertos de E/S",
+    "silabo": "2.2 Introducción a la programación embebida · 2.3.1 Control de puertos de entrada y salida",
+    "ideas_clave": [
+      "Un programa embebido configura una vez y repite para siempre en while(1).",
+      "Con |=, &= ~ y ^= se cambia un bit sin tocar los demás.",
+      "TRIS fija la dirección, LAT escribe, PORT lee y ANSEL elige analógico o digital (al reset todo es analógico).",
+      "Cada segmento necesita su resistencia; un pin entrega hasta 25 mA."
+    ],
+    "formulas": [
+      "R = (5 V − 2 V) / 10 mA = 300 Ω → 330 Ω.",
+      "Códigos cátodo común (gfedcba): 0 = 0x3F, 1 = 0x06, 2 = 0x5B, 3 = 0x4F, 4 = 0x66, 5 = 0x6D, 6 = 0x7D, 7 = 0x07, 8 = 0x7F, 9 = 0x6F."
+    ],
+    "preguntas": [
+      "Escriba la instrucción para poner en 0 el bit 2 de LATD.",
+      "¿Por qué un pulsador en RB0 no responde si ANSELB = 0xFF?",
+      "¿Qué código muestra el 7 en cátodo común?",
+      "¿Qué diferencia hay entre if (a & b) e if (a && b)?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S05",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S5",
+    "titulo": "Pulsantes, interrupciones y Timer0",
+    "silabo": "2.3.1 Entradas digitales · 2.3.2 Manejo de interrupciones · temporización con Timer0",
+    "ideas_clave": [
+      "El rebote se elimina con RC + Schmitt trigger o confirmando el estado por software (20 ms).",
+      "La interrupción detiene el programa, ejecuta la ISR y vuelve; la ISR debe borrar la bandera.",
+      "Se necesita el bit de la fuente (INTE, IOCIE, TMR0IE), PEIE para periféricos y GIE global.",
+      "Timer0 genera bases de tiempo exactas sin bloquear el programa (sin __delay_ms)."
+    ],
+    "formulas": [
+      "Timer0 8 bits: T = (TMR0H + 1) × pres × 4 / Fosc.",
+      "Fosc = 32 MHz, pres 1:64 → tick = 8 µs → TMR0H = 124 da 1 ms.",
+      "Las variables compartidas con la ISR se declaran volatile."
+    ],
+    "preguntas": [
+      "¿Qué pasa si la ISR no borra INTF?",
+      "¿Por qué la variable vel se declara volatile?",
+      "Calcule TMR0H para 2 ms con prescaler 1:64 y Fosc = 32 MHz.",
+      "¿Por qué no se debe usar un retardo largo dentro de una interrupción?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S06",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 1,
+    "unidad_nombre": "Arquitectura de los microprocesadores y microcontroladores",
+    "sesion": "S6",
+    "titulo": "Memoria: tipos, mapas y formatos de datos",
+    "silabo": "1.1 Arquitectura general · Von Neumann y Harvard · 1.3 Representación de datos",
+    "ideas_clave": [
+      "SRAM para variables, Flash para el programa y EEPROM para datos que deben sobrevivir al apagado.",
+      "Con n líneas de dirección hay 2ⁿ posiciones; el mapa de memoria reparte ese espacio entre ROM, RAM y periféricos.",
+      "Los µC usan Harvard: instrucciones de 14 bits y datos de 8 bits por buses separados.",
+      "Enteros en complemento a 2 y little-endian; reales en IEEE 754, costosos sin FPU."
+    ],
+    "formulas": [
+      "−5 en 8 bits = 1111 1011.",
+      "0x1234 en memoria little-endian: 34h, 12h.",
+      "El PC vale 0000h al reset; toda interrupción salta a 0004h."
+    ],
+    "preguntas": [
+      "¿Qué memoria usaría para guardar el último valor de calibración de un sensor?",
+      "¿Cómo se guarda 0xABCD a partir de la dirección 0030h?",
+      "¿Por qué conviene medir en mV con uint16_t y no en V con float?",
+      "Represente −100 en 8 bits con signo."
+    ],
+    "normas": [
+      "IEEE 754"
+    ],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S07",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S7",
+    "titulo": "Multiplexación de displays y conversión A/D",
+    "silabo": "2.3.4 Manejo de dispositivos de visualización · 2.3.3 Conversión A/D",
+    "ideas_clave": [
+      "La multiplexación enciende un dígito a la vez; sobre 50 Hz el ojo ve todos encendidos.",
+      "Los comunes van con transistores porque un dígito pide más corriente de la que da un pin.",
+      "ADC de 10 bits: 1024 códigos; con Vref = 5 V, 1 LSB ≈ 4.88 mV.",
+      "V(mV) = código × 5000 / 1023 calculado en enteros de 32 bits."
+    ],
+    "formulas": [
+      "Barrido típico: 4 a 5 ms por dígito con la ISR de Timer0.",
+      "ADCON0: ADON, ADFM = 1 (justificado a la derecha); ADPCH elige el canal."
+    ],
+    "preguntas": [
+      "¿Qué pasa si no se apagan los displays antes de cambiar los segmentos?",
+      "¿Qué código da el ADC con 1.25 V?",
+      "¿Por qué ANSEL debe estar en 1 para leer el canal?",
+      "¿Cuántos pines se ahorran al multiplexar 4 displays frente a conectarlos por separado?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S08",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 1,
+    "unidad_nombre": "Arquitectura de los microprocesadores y microcontroladores",
+    "sesion": "S8",
+    "titulo": "Paralelismo, rendimiento y procesadores especiales",
+    "silabo": "1.5 Paralelismo (Flynn, segmentación, multicore) · 1.6 Rendimiento · 1.7 µC, DSP, GPU, SoC · 1.8 Evolución",
+    "ideas_clave": [
+      "El paralelismo se aprovecha en instrucciones (pipeline), datos (SIMD, GPU) e hilos (multicore).",
+      "Flynn clasifica en SISD, SIMD, MISD y MIMD; el PIC16 es SISD con pipeline de 2 etapas.",
+      "T = N × CPI × Tclk; la ley de Amdahl muestra que la parte secuencial limita la aceleración.",
+      "µC para controlar, DSP para señales, GPU para cálculo masivo y SoC para sistemas completos."
+    ],
+    "formulas": [
+      "MIPS = f / (CPI × 10⁶).",
+      "Amdahl: S = 1 / [(1 − p) + p/n]."
+    ],
+    "preguntas": [
+      "¿En qué categoría de Flynn está una GPU?",
+      "Un programa es 80 % paralelo: ¿qué aceleración da con 4 núcleos?",
+      "¿Qué procesador elegiría para un ECG portátil con Bluetooth?",
+      "¿Qué riesgo del pipeline produce un salto condicional?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S09",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S9",
+    "titulo": "Sensores analógicos y acondicionamiento de señal",
+    "silabo": "2.3.3 Conversión A/D · apoyo de amplificadores y filtros pasivos",
+    "ideas_clave": [
+      "Cada sensor tiene su ecuación: LM35 da 10 mV/°C; la LDR necesita un divisor y calibración.",
+      "Amplificar hasta cubrir 0–5 V mejora la resolución en la unidad física.",
+      "Un RC pasa bajo antes del ADC reduce el ruido; el promedio por software ayuda más.",
+      "Trabajar en enteros escalados (décimas de °C, mV) evita usar float."
+    ],
+    "formulas": [
+      "No inversor: G = 1 + R2/R1.",
+      "fc = 1 / (2π R C).",
+      "t10 = (uint32_t)adc × 5000 / 1023 / 5 (décimas de °C con G = 5)."
+    ],
+    "preguntas": [
+      "¿Qué ganancia necesita un LM35 para que 50 °C den 4 V?",
+      "¿Qué fc tiene un filtro de 4.7 kΩ y 10 µF?",
+      "¿Por qué conviene promediar 16 lecturas y no 10?",
+      "¿Para qué sirve un seguidor de voltaje antes del ADC?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S10",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S10",
+    "titulo": "Timers 0, 1 y 2 a fondo: tiempo, conteo y velocidad",
+    "silabo": "2.3 Configuración de periféricos · temporizadores y contadores del PIC16F18875",
+    "ideas_clave": [
+      "Timer0 da la base de tiempo, Timer1 cuenta y mide, Timer2 genera el PWM.",
+      "T = (65 536 − N₀) × pres × 4/Fosc en 16 bits; si no alcanza, contar varios desbordes.",
+      "Con Timer1 en modo contador y una ventana de 1 s se mide frecuencia.",
+      "rpm = pulsos por segundo × 60 / PPR; el sentido se lee con el canal B."
+    ],
+    "formulas": [
+      "Fosc = 32 MHz, pres 1:8 → 1 tick = 1 µs; 50 ms → N₀ = 65 536 − 50 000 = 15 536 = 0x3CB0."
+    ],
+    "preguntas": [
+      "Calcule N₀ para 10 ms con prescaler 1:8 y Fosc = 32 MHz.",
+      "Un encoder de 11 PPR da 550 pulsos en 0.5 s: ¿cuántas rpm?",
+      "¿Cuándo conviene medir el periodo en lugar de contar?",
+      "¿Qué registro elige el pin T1CKI en el PIC16F18875?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S11",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S11",
+    "titulo": "Pantalla LCD 16×2",
+    "silabo": "2.3.4 Manejo de dispositivos de visualización",
+    "ideas_clave": [
+      "El HD44780 en modo 4 bits usa 6 pines del µC (RS, E, D4–D7); RW a GND.",
+      "La librería oculta los tiempos y comandos del controlador.",
+      "sprintf con enteros escalados da números con decimales sin float.",
+      "Una buena pantalla muestra variable, valor y unidad."
+    ],
+    "formulas": [
+      "sprintf(linea, \"V=%u.%03u V\", mv / 1000, mv % 1000);",
+      "Contraste con potenciómetro de 10 kΩ en V0."
+    ],
+    "preguntas": [
+      "¿Cuántos pines ahorra el modo 4 bits frente al de 8?",
+      "Escriba el sprintf para mostrar \"P=101.3kPa\" desde p10 = 1013.",
+      "¿Por qué se ve un rectángulo negro en la primera fila al encender?",
+      "¿Qué pasa si se escribe en el LCD sin esperar el tiempo del comando clear?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S12",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S12",
+    "titulo": "Teclado matricial y programación modular en C",
+    "silabo": "2.2 Programación embebida · 2.3 Periféricos externos (teclado)",
+    "ideas_clave": [
+      "El teclado se barre fila por fila leyendo las columnas con pull-up.",
+      "Cada periférico en su módulo (.h/.c) hace el código reutilizable.",
+      "struct agrupa la configuración; enum nombra los estados.",
+      "Una máquina de estados ordena el comportamiento de la Práctica 3."
+    ],
+    "formulas": [
+      "Filas RB0–RB3 salidas; columnas RB4–RB7 entradas con WPUB = 0xF0.",
+      "typedef enum { REPOSO, EDITAR, MARCHA, PARO } estado_t;"
+    ],
+    "preguntas": [
+      "¿Cuántos pines necesita un teclado de 16 teclas sin matriz?",
+      "¿Qué pasa si las columnas no tienen pull-up?",
+      "¿Qué diferencia hay entre paso por valor y por referencia?",
+      "¿Qué contiene un archivo .h y qué un .c?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S13",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S13",
+    "titulo": "Actuadores: motor DC y puente H",
+    "silabo": "2.3 Periféricos externos · control de actuadores de potencia",
+    "ideas_clave": [
+      "Un pin da 25 mA; un motor pide cientos de mA: se necesita un driver.",
+      "El puente H invierte la polaridad para cambiar el sentido.",
+      "En el L298N, IN1/IN2 fijan el sentido y EN con PWM fija la velocidad.",
+      "Diodos de rueda libre, fuente aparte y tierra común."
+    ],
+    "formulas": [
+      "Nunca cerrar Q1 y Q3 (o Q2 y Q4) a la vez: shoot-through.",
+      "El L298N cae ≈ 2 V; para motores de 6 V considerar el TB6612FNG."
+    ],
+    "preguntas": [
+      "¿Qué pasa si se cierran Q1 y Q3 a la vez?",
+      "¿Qué entradas frenan el motor rápidamente?",
+      "¿Por qué hay que unir las tierras del µC y de la fuente del motor?",
+      "¿Para qué sirven los diodos de rueda libre?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S14",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S14",
+    "titulo": "Modulación por ancho de pulso (PWM)",
+    "silabo": "2.3 Configuración de periféricos · módulos CCP/PWM y Timer2",
+    "ideas_clave": [
+      "El PWM cambia el valor medio cambiando el ancho del pulso, no la amplitud.",
+      "Timer2 fija el periodo; CCPR1 fija el ancho.",
+      "Más frecuencia = menos resolución; elegir según la carga (motores 15–20 kHz, LED > 200 Hz).",
+      "Con PWM se controla velocidad de motores y brillo de luminarias."
+    ],
+    "formulas": [
+      "T_PWM = (T2PR + 1) × 4 × pres / Fosc.",
+      "Resolución (bits) = log₂[4 (T2PR + 1)].",
+      "Ciclo de trabajo = CCPR1 / [4 (T2PR + 1)]."
+    ],
+    "preguntas": [
+      "Calcule T2PR para 5 kHz con pres 1:16 y Fosc = 32 MHz.",
+      "¿Qué resolución se obtiene?",
+      "¿Qué valor de CCPR1 da 75 %?",
+      "¿Por qué un motor zumba con PWM de 1 kHz?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S15",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S15",
+    "titulo": "Conversión digital-analógica (D/A)",
+    "silabo": "2.3.3 Conversión A/D y D/A",
+    "ideas_clave": [
+      "La resolución de un DAC es Vref / 2ⁿ; el DAC interno del PIC16F18875 es de 5 bits (1 LSB = 156 mV con 5 V).",
+      "Vout = Vref × DAC1R / 32; la salida es de alta impedancia: usar un seguidor si hay carga.",
+      "Un PWM con filtro RC pasa bajo es un DAC barato: Vout = D × 5 V, con fc 10 a 100 veces menor que la frecuencia del PWM.",
+      "La red R-2R da más bits con resistencias; el DAC externo (SPI/I²C) da precisión y velocidad."
+    ],
+    "formulas": [
+      "DAC1CON0 = 0xA0 (EN, OE1, VDD/VSS); DAC1CON1 = 16 → 2.5 V.",
+      "20 kHz, R = 10 kΩ, C = 1 µF → fc = 16 Hz."
+    ],
+    "preguntas": [
+      "¿Qué voltaje entrega el DAC interno con DAC1R = 8 y Vref = 5 V?",
+      "¿Por qué el filtro RC del PWM debe tener fc mucho menor que la frecuencia del PWM?",
+      "¿Qué compromiso aparece al bajar fc del filtro?",
+      "¿Cuántos niveles distintos tiene un DAC de 5 bits?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S16",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S16",
+    "titulo": "Acondicionamiento de señales para aplicaciones biomédicas",
+    "silabo": "RA: aplicaciones hacia la ingeniería biomédica basadas en µC",
+    "ideas_clave": [
+      "La cadena de medida es sensor, amplificación, filtrado, ADC y µC.",
+      "El amplificador de instrumentación amplifica la diferencia y rechaza el modo común (CMRR > 100 dB).",
+      "Butterworth es el filtro por defecto; Bessel cuando importa la forma de onda.",
+      "El ruido de 60 Hz y la seguridad del paciente (batería o aislamiento) definen el diseño."
+    ],
+    "formulas": [
+      "INA128 / AD620: G = 1 + 49.4 kΩ / RG.",
+      "ECG ≈ 1 mV: G ≈ 1000; pasa altos 0.5 Hz, pasa bajos 40–100 Hz, notch 60 Hz; muestreo ≥ 250 Hz."
+    ],
+    "preguntas": [
+      "¿Qué RG da G = 500 en un INA128?",
+      "¿A qué frecuencia mínima se muestrea un ECG con contenido hasta 100 Hz?",
+      "¿Por qué no se alimenta el equipo directo de la red?",
+      "¿Qué filtro elimina el potencial de media celda del electrodo?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S17",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S17",
+    "titulo": "Muestreo periódico y filtrado digital",
+    "silabo": "2.3.3 Conversión A/D · aplicación biomédica",
+    "ideas_clave": [
+      "Nyquist: fs > 2 × fmax; en la práctica 5 a 10 veces. El filtro antialias va antes del ADC.",
+      "El ADC se dispara a ritmo constante desde la ISR de un timer, nunca desde un lazo con retardos.",
+      "Un promedio móvil con buffer circular estabiliza la lectura: se resta la muestra vieja y se suma la nueva.",
+      "El tamaño del buffer en potencia de 2 permite dividir con desplazamiento."
+    ],
+    "formulas": [
+      "Timer0 cada 2 ms → 500 Hz.",
+      "suma = suma − buf[idx] + x; idx = (idx + 1) & (N − 1); promedio = suma >> 4 (N = 16)."
+    ],
+    "preguntas": [
+      "¿Qué es el aliasing?",
+      "¿Por qué el promedio móvil es mejor que promediar 16 lecturas seguidas?",
+      "Con Timer0 cada 2 ms, ¿cuántas muestras por segundo se obtienen?",
+      "¿Dónde se coloca el filtro antialias y de qué tipo es?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S18",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S18",
+    "titulo": "Comunicación serial con USART",
+    "silabo": "2.3.5 Manejo de periféricos de comunicación",
+    "ideas_clave": [
+      "La UART es asíncrona: ambos extremos acuerdan los baudios y el formato (8N1).",
+      "Cada byte va entre un bit de inicio y uno de parada.",
+      "SPBRG = Fosc / (4 × baud) − 1 con BRG16 = BRGH = 1; error aceptable < 2 %.",
+      "TX con RX cruzados y tierra común; al PC por un conversor USB-serial (CH340, FT232)."
+    ],
+    "formulas": [
+      "9600 baudios, Fosc = 32 MHz → SPBRG = 832 (error 0.04 %).",
+      "115 200 → SPBRG = 68 (error 0.6 %)."
+    ],
+    "preguntas": [
+      "¿Cuántos bytes por segundo caben a 9 600 baudios en 8N1?",
+      "Calcule SPBRG para 19 200 baudios con Fosc = 32 MHz.",
+      "¿Qué pasa si un equipo está a 9 600 y el otro a 4 800?",
+      "¿Para qué sirve el MAX232?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S19",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S19",
+    "titulo": "Protocolos de aplicación sobre UART",
+    "silabo": "2.3.5 Periféricos de comunicación · base de la Práctica 4",
+    "ideas_clave": [
+      "Una trama de comandos tiene inicio, comando, longitud, datos y verificación.",
+      "El checksum XOR de comando, longitud y datos detecta errores; el receptor responde ACK o NAK y el emisor reintenta.",
+      "La recepción se hace por interrupción con un buffer circular (índices de escritura y lectura).",
+      "Un tiempo de espera (timeout) evita que el maestro se bloquee si no llega respuesta."
+    ],
+    "formulas": [
+      "rx[w] = RC1REG; w = (w + 1) & (RXN − 1);",
+      "Si OERR = 1: CREN = 0 y luego CREN = 1 para rearmar el receptor."
+    ],
+    "preguntas": [
+      "¿Por qué el tamaño del buffer circular es potencia de 2?",
+      "¿Qué indica OERR y cómo se limpia?",
+      "Calcule el checksum XOR de 0x10, 0x02, 0xA5 y 0x3C.",
+      "¿Qué hace el maestro si recibe NAK?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S20",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S20",
+    "titulo": "Buses síncronos: SPI e I²C",
+    "silabo": "2.3.5 Manejo de periféricos de comunicación · módulo MSSP",
+    "ideas_clave": [
+      "SPI es rápido y full dúplex, pero necesita un CS por esclavo (4 hilos: SCK, MOSI, MISO, CS).",
+      "I²C usa 2 hilos (SDA, SCL) con pull-up y direcciones de 7 bits; cada byte se confirma con ACK.",
+      "El MSSP del PIC hace SPI o I²C; MCC genera las funciones.",
+      "Elegir el bus según el dispositivo: lo define su hoja de datos."
+    ],
+    "formulas": [
+      "I²C: inicio → dirección + R/W → ACK → datos → ACK → parada.",
+      "RTC DS1307 = dirección 0x68; DAC MCP4921 por SPI."
+    ],
+    "preguntas": [
+      "¿Cuántos hilos usa SPI con 3 esclavos?",
+      "¿Qué pasa en I²C si falta la resistencia de pull-up?",
+      "¿Qué bus usaría para una tarjeta SD?",
+      "¿Cuántos dispositivos admite un bus I²C con direcciones de 7 bits?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S21",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S21",
+    "titulo": "Manejo de dispositivos de memoria",
+    "silabo": "2.3.6 Manejo de dispositivos de memoria",
+    "ideas_clave": [
+      "La memoria se elige por capacidad, ciclos de escritura, velocidad y volatilidad.",
+      "La EEPROM interna del PIC16F18875 (256 bytes, desde 0xF000) guarda configuraciones; una escritura tarda ≈ 4 ms.",
+      "No escribir en cada vuelta del lazo: solo cuando el dato cambia, y verificar con checksum al recuperar.",
+      "Para registro de datos masivo se usa EEPROM I²C (24LCxx) o tarjeta SD por SPI."
+    ],
+    "formulas": [
+      "DATAEE_ReadByte / DATAEE_WriteByte (MCC).",
+      "typedef struct { uint16_t t_on, t_off; uint8_t sentido; uint8_t chk; } config_t;"
+    ],
+    "preguntas": [
+      "¿Por qué no se guarda la configuración en RAM?",
+      "¿Qué pasa si se escribe la EEPROM en cada vuelta del lazo principal?",
+      "¿Para qué sirve el checksum guardado junto a la configuración?",
+      "¿Qué memoria usaría para registrar temperatura cada segundo durante un mes?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S22",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S22",
+    "titulo": "Comunicaciones inalámbricas con microcontroladores",
+    "silabo": "Unidad 2 · trabajo de comunicaciones inalámbricas (10 pts)",
+    "ideas_clave": [
+      "Para el µC casi todos los módulos son una UART más; se eligen por alcance, tasa de datos, consumo, costo e infraestructura.",
+      "RF 433 MHz: simplex, ASK, barato; necesita antena de 17 cm, codificación y repetición.",
+      "Bluetooth HC-05/HC-08: puerto serial inalámbrico a 9 600 baudios; XBee: redes Zigbee punto a multipunto.",
+      "GSM/GPS: comandos AT para SMS y tramas NMEA para posición."
+    ],
+    "formulas": [
+      "El HC-05 entra en modo AT con el botón presionado al encender (38 400 baudios).",
+      "Bandas libres: 433 MHz y 2.4 GHz."
+    ],
+    "preguntas": [
+      "¿Por qué el enlace RF de 433 MHz necesita codificación Manchester?",
+      "¿Qué diferencia hay entre HC-05 y HC-08?",
+      "¿Qué trama NMEA entrega la posición?",
+      "¿Qué tecnología elegiría para enviar una alarma desde una zona rural sin Wi-Fi?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S23",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S23",
+    "titulo": "Microcontroladores de 32 bits",
+    "silabo": "Unidad 2 · programación de microcontroladores de 8 y 32 bits",
+    "ideas_clave": [
+      "Un µC de 32 bits opera a 3.3 V, con registros de 32 bits, más memoria y periféricos con DMA.",
+      "ARM Cortex-M: 16 registros, NVIC con prioridades y anidamiento, SysTick y DMA.",
+      "STM32, PIC32, ESP32 (Wi-Fi/BT) y RP2040 cubren distintas aplicaciones; la HAL abstrae los registros.",
+      "El mismo LED: en XC8 se escribe LATA; en STM32 se usa HAL_GPIO_TogglePin."
+    ],
+    "formulas": [
+      "No conectar señales de 5 V directamente a un µC de 3.3 V."
+    ],
+    "preguntas": [
+      "¿Qué es el NVIC?",
+      "¿Qué ventaja da el DMA?",
+      "¿Cuándo basta un µC de 8 bits?",
+      "¿Qué hay que revisar antes de conectar un sensor de 5 V a un ESP32?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S24",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S24",
+    "titulo": "Arquitectura de firmware para automatización y biomédica",
+    "silabo": "Unidad 2 · resultados 3.1/4.1: sistemas de automatización y biomédicos",
+    "ideas_clave": [
+      "Superlazo + interrupciones + máquina de estados resuelve la mayoría de los sistemas embebidos.",
+      "Un planificador cooperativo con base de 1 ms reparte el tiempo sin bloquear.",
+      "El watchdog protege contra cuelgues (CLRWDT en el lazo principal); SLEEP ahorra energía.",
+      "El trabajo integrador une todo lo visto en el ciclo: sensor, teclado, máquina de estados, LCD, PWM, comunicación y memoria."
+    ],
+    "formulas": [
+      "if ((uint16_t)(ms − t_adc) >= 10) { t_adc = ms; leer_sensores(); }"
+    ],
+    "preguntas": [
+      "¿Qué pasa si una tarea del planificador tarda 300 ms?",
+      "¿Dónde debe ir CLRWDT() y por qué no en la ISR?",
+      "Proponga los estados de un dosificador de líquido.",
+      "¿Por qué conviene medir el tiempo con (uint16_t)(ms − t0)?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD1-S25",
+    "materia": "sistemas_digitales_1",
+    "materia_nombre": "Sistemas Digitales I",
+    "unidad": 2,
+    "unidad_nombre": "Programación de los microcontroladores de 8 bits y de 32 bits",
+    "sesion": "S25",
+    "titulo": "Repaso integrador para el examen",
+    "silabo": "Unidad 2 completa · examen del segundo parcial (1–6 de febrero)",
+    "ideas_clave": [
+      "Cada periférico en una línea: puertos (TRIS/LAT/PORT/ANSEL), interrupciones (bandera + habilitación + GIE), Timer0 (base de tiempo), Timer1 (contar), Timer2+CCP (PWM), ADC (10 bits), EUSART (SPBRG), MSSP (SPI/I²C), EEPROM.",
+      "Los cálculos del examen son cuatro: periodo de timer, periodo y resolución de PWM, código y voltaje del ADC, SPBRG y error de baudios.",
+      "Leer código: identificar qué registro se configura y qué hace la ISR.",
+      "Elegir el periférico correcto para un problema dado."
+    ],
+    "formulas": [
+      "Ejercicios tipo examen: Timer0 cada 2 ms con Fosc = 32 MHz; LM35 en ANA1 con LCD; PWM 10 kHz pres 1:4 → T2PR y CCPR1 al 30 %; trama UART de temperatura."
+    ],
+    "preguntas": [
+      "Configure Timer0 para 2 ms con Fosc = 32 MHz y prescaler 1:64.",
+      "Calcule T2PR y la resolución para 10 kHz con pres 1:4 y Fosc = 32 MHz; ¿qué CCPR1 da 30 %?",
+      "¿Qué código entrega el ADC con el LM35 a 25.3 °C (Vref = 5 V, sin ganancia)?",
+      "Diseñe una trama para enviar la temperatura en décimas de °C."
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales I, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T01",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 1,
+    "unidad_nombre": "Arquitecturas y programación de los dispositivos lógicos programables",
+    "sesion": "T1",
+    "titulo": "Presentación de la asignatura y dispositivos lógicos programables",
+    "silabo": "resultados de aprendizaje · evaluación · introducción a la Unidad 1",
+    "ideas_clave": [
+      "La asignatura va del hardware reconfigurable (FPGA) al software de tiempo real y su certificación.",
+      "TTL y CMOS se diferencian en niveles, consumo, retardo y fan-out; el FPGA trabaja a 3.3 V o menos.",
+      "PLA y PAL resuelven funciones pequeñas; CPLD y FPGA, sistemas completos.",
+      "Se elige FPGA cuando hace falta paralelismo y latencia determinista en ns."
+    ],
+    "formulas": [
+      "LVCMOS33: VIL ≤ 0.8 V, VIH ≥ 2 V; los pines del FPGA NO toleran 5 V.",
+      "Fan-out = IOL / IIL (TTL estándar: 10)."
+    ],
+    "preguntas": [
+      "¿Por qué no se debe conectar una salida de 5 V a un pin del FPGA?",
+      "¿Qué diferencia un CPLD de un FPGA respecto a la volatilidad?",
+      "Dé un ejemplo de aplicación donde un FPGA supera a un µC."
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T02",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 1,
+    "unidad_nombre": "Arquitecturas y programación de los dispositivos lógicos programables",
+    "sesion": "T2",
+    "titulo": "Arquitectura del FPGA y flujo de diseño",
+    "silabo": "1.1 Arquitectura del FPGA · 1.3 Síntesis, simulación e implementación (visión general)",
+    "ideas_clave": [
+      "Un FPGA es una matriz de CLB (LUT + FF) con interconexión programable, E/S, BRAM y DSP.",
+      "Una LUT de n entradas es una memoria de 2ⁿ bits: implementa cualquier función de n variables.",
+      "El Artix-7 de la Nexys tiene 63 400 LUT6 y un reloj de 100 MHz.",
+      "El flujo es diseño, simulación, síntesis, implementación, bitstream y programación."
+    ],
+    "formulas": [
+      "LUT de n entradas = memoria de 2ⁿ bits (LUT6 = 64 bits).",
+      "Artix-7 XC7A100T: 63 400 LUT6, 4.9 Mb BRAM, 240 DSP, reloj de 100 MHz (pin E3).",
+      "Flujo: diseño → simulación → síntesis → implementación (.xdc) → bitstream → programación."
+    ],
+    "preguntas": [
+      "¿Cuántos bits de configuración tiene una LUT6?",
+      "¿En qué etapa se usan las restricciones del .xdc?",
+      "¿Por qué el FPGA pierde su diseño al desconectarlo y cómo se evita?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T03",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 1,
+    "unidad_nombre": "Arquitecturas y programación de los dispositivos lógicos programables",
+    "sesion": "T3",
+    "titulo": "VHDL: entidad, arquitectura y asignación concurrente",
+    "silabo": "1.2 Diseño estructural y flujo de datos en VHDL",
+    "ideas_clave": [
+      "La entidad define la interfaz y la arquitectura el comportamiento.",
+      "Las asignaciones concurrentes son hardware en paralelo: su orden no importa.",
+      "std_logic_vector para buses; unsigned y signed para hacer cuentas.",
+      "Las señales intermedias hacen el diseño legible sin agregar hardware."
+    ],
+    "formulas": [
+      "entity … port (…); end; architecture rtl of … is begin … end rtl;",
+      "and y or tienen la misma precedencia: usar paréntesis.",
+      "'1' para un bit, \"0101\" para vectores; unsigned(v), to_integer(u), to_unsigned(n, 8)."
+    ],
+    "preguntas": [
+      "¿Qué pasa si se asigna dos veces la misma señal fuera de un process?",
+      "¿Por qué hacen falta paréntesis en a or b and c?",
+      "¿Cuántos bits tiene integer range 0 to 9?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T04",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 1,
+    "unidad_nombre": "Arquitecturas y programación de los dispositivos lógicos programables",
+    "sesion": "T4",
+    "titulo": "Asignación condicional, selectiva, diseño estructural y simulación",
+    "silabo": "1.2 Diseño estructural y flujo de datos · 1.3 Síntesis, simulación e implementación",
+    "ideas_clave": [
+      "when–else da prioridad; with–select da un MUX sin prioridad.",
+      "El diseño estructural arma sistemas con componentes probados conectados con port map.",
+      "El testbench genera estímulos y verifica con assert antes de ir a la tarjeta.",
+      "Síntesis e implementación convierten el VHDL en un bitstream con los pines del .xdc."
+    ],
+    "formulas": [
+      "when–else (prioridad) · with–select (MUX puro, requiere when others).",
+      "Instancia: u1 : entity work.eq1 port map (i0 => a(0), i1 => b(0), eq => e0);",
+      "Testbench sin puertos: estímulos + assert."
+    ],
+    "preguntas": [
+      "¿Qué ocurre si falta el else final en un when–else?",
+      "¿Por qué un testbench no tiene puertos?",
+      "¿Qué ventaja tiene la conexión por nombre en el port map?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T05",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 1,
+    "unidad_nombre": "Arquitecturas y programación de los dispositivos lógicos programables",
+    "sesion": "T5",
+    "titulo": "Descripción comportamental: process, flip-flops, registros y contadores",
+    "silabo": "1.2 Diseño en VHDL · comportamiento secuencial (process, if, case)",
+    "ideas_clave": [
+      "El process describe comportamiento secuencial dentro de un mundo concurrente.",
+      "Un if rising_edge(clk) sin else infiere flip-flops.",
+      "Registros y contadores son flip-flops más lógica de carga y suma.",
+      "En procesos combinacionales: lista completa y salidas asignadas siempre."
+    ],
+    "formulas": [
+      "process (clk, rst) … if rst = '1' then … elsif rising_edge(clk) then … end if;",
+      "Proceso combinacional: lista de sensibilidad completa y todas las salidas asignadas (evitar latches)."
+    ],
+    "preguntas": [
+      "¿Qué se infiere si en un process combinacional falta el else?",
+      "¿Cuál es la diferencia entre reset síncrono y asíncrono?",
+      "¿Cuánto vale cnt después de 20 flancos con up = 1 desde 0?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T06",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 1,
+    "unidad_nombre": "Arquitecturas y programación de los dispositivos lógicos programables",
+    "sesion": "T6",
+    "titulo": "Secuenciales regulares y máquinas de estado finitas",
+    "silabo": "1.4 Máquinas de estado finitas · circuitos secuenciales regulares (divisores, antirrebote)",
+    "ideas_clave": [
+      "Un contador divide la frecuencia; se usan pulsos de habilitación, no relojes derivados.",
+      "El antirrebote sincroniza, filtra 10 ms y genera un pulso por pulsación.",
+      "Moore: salida según el estado. Mealy: según estado y entrada (responde un ciclo antes).",
+      "FSM en VHDL: tipo enumerado + proceso de registro + proceso combinacional."
+    ],
+    "formulas": [
+      "N = f_clk / f_salida; 1 kHz desde 100 MHz → conmutar cada 50 000 ciclos.",
+      "Antirrebote: 2 FF de sincronía + 10 ms estable (1 000 000 ciclos) + detector de flanco.",
+      "FSM: type estado_t is (S0, S1, S2); proceso de registro + proceso de estado siguiente/salidas."
+    ],
+    "preguntas": [
+      "¿Cuántos bits necesita un contador para dividir 100 MHz a 1 Hz?",
+      "¿Por qué no usar un reloj dividido para otro process?",
+      "¿Cuántos flip-flops usa una FSM de 5 estados en one-hot y en binario?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T07",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 1,
+    "unidad_nombre": "Arquitecturas y programación de los dispositivos lógicos programables",
+    "sesion": "T7",
+    "titulo": "Integración modular: paquetes, generics, displays y UART",
+    "silabo": "1.5 Integración modular",
+    "ideas_clave": [
+      "Un proyecto grande es un top que conecta módulos probados por separado.",
+      "Los paquetes reúnen tipos, constantes y funciones para varios proyectos.",
+      "generic parametriza periodos y anchos sin reescribir código.",
+      "Displays multiplexados y UART son módulos que se reutilizan en todo el ciclo."
+    ],
+    "formulas": [
+      "9600 baudios a 100 MHz → 10 417 ciclos por bit; 115 200 → 868.",
+      "generic ( N : integer := 100_000 );",
+      "8 displays: cambiar el ánodo cada 1 ms (barrido de 8 ms)."
+    ],
+    "preguntas": [
+      "¿Cuántos ciclos de 100 MHz dura un bit a 115 200 baudios?",
+      "¿Qué diferencia hay entre package y package body?",
+      "¿Cada cuánto debe cambiar el ánodo para que 8 displays no parpadeen?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T08",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 1,
+    "unidad_nombre": "Arquitecturas y programación de los dispositivos lógicos programables",
+    "sesion": "T8",
+    "titulo": "Procesadores embebidos en FPGA y SoC",
+    "silabo": "1.6 Programación de procesadores embebidos · proyecto interciclo",
+    "ideas_clave": [
+      "Un soft-core (MicroBlaze, RISC-V) se construye con la lógica del FPGA; un hard-core (ARM en Zynq) viene en silicio.",
+      "El bus AXI conecta el procesador con periféricos estándar y propios.",
+      "Vivado arma el hardware (.xsa) y Vitis programa en C.",
+      "Hardware para lo rápido y paralelo; software para lo complejo y cambiante."
+    ],
+    "formulas": [
+      "MicroBlaze ≈ 1000–3000 LUT; Zynq = ARM (PS) + lógica (PL) unidos por AXI.",
+      "Vivado → Export Hardware (.xsa) → Vitis (plataforma + aplicación en C)."
+    ],
+    "preguntas": [
+      "¿Qué ventaja tiene un Zynq frente a un MicroBlaze?",
+      "¿Qué archivo pasa de Vivado a Vitis?",
+      "¿Qué parte de su proyecto pondría en hardware y cuál en software?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T09",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 2,
+    "unidad_nombre": "Sistemas embebidos",
+    "sesion": "T9",
+    "titulo": "Fundamentos y plataformas de hardware de los sistemas embebidos",
+    "silabo": "2.1 Fundamentos (conceptos, características y aplicaciones) · 2.2 Plataformas de hardware",
+    "ideas_clave": [
+      "Un sistema embebido es hardware + firmware para una función específica, con recursos limitados.",
+      "Sus bloques: sensores, acondicionamiento, procesador, actuadores, HMI y comunicación.",
+      "La plataforma se elige por rendimiento, consumo, periféricos y costo.",
+      "El STM32F407 tiene un Cortex-M4 a 168 MHz con buses AHB/APB y mapa de memoria de 32 bits."
+    ],
+    "formulas": [
+      "STM32F407VGT6: Cortex-M4F a 168 MHz, 1 MB Flash, 192 KB SRAM.",
+      "Flash en 0x0800 0000; SRAM en 0x2000 0000; APB1 42 MHz, APB2 84 MHz."
+    ],
+    "preguntas": [
+      "¿Qué diferencia un sistema embebido de un PC?",
+      "¿Qué plataforma elegiría para un monitor de signos vitales con Wi-Fi?",
+      "¿En qué dirección empieza la SRAM del STM32F407?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T10",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 2,
+    "unidad_nombre": "Sistemas embebidos",
+    "sesion": "T10",
+    "titulo": "Defensa del interciclo y herramientas de desarrollo para STM32",
+    "silabo": "Proyecto interciclo (10 pts) · 2.5.2 Herramientas de desarrollo",
+    "ideas_clave": [
+      "CubeMX configura reloj, pines y periféricos y genera código con la HAL.",
+      "CubeIDE compila y depura con el ST-LINK de la tarjeta.",
+      "Registros (CMSIS) para control fino; HAL para productividad y portabilidad.",
+      "El código propio va siempre en las zonas USER CODE."
+    ],
+    "formulas": [
+      "RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN; GPIOD->MODER: 00 entrada, 01 salida, 10 alternativa, 11 analógico.",
+      "Escribir solo entre /* USER CODE BEGIN */ y /* USER CODE END */."
+    ],
+    "preguntas": [
+      "¿Qué pasa si no se habilita el reloj del GPIO en RCC?",
+      "¿Qué valor de MODER pone un pin en modo analógico?",
+      "¿Por qué usar BSRR en vez de ODR para cambiar un bit?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T11",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 2,
+    "unidad_nombre": "Sistemas embebidos",
+    "sesion": "T11",
+    "titulo": "Interfaces de comunicación",
+    "silabo": "2.3 Interfaces de comunicación",
+    "ideas_clave": [
+      "UART es punto a punto y asíncrona; SPI e I²C son síncronas para periféricos cercanos.",
+      "CAN es un bus diferencial multimaestro con prioridad por identificador.",
+      "La elección depende de distancia, velocidad, número de nodos y ruido.",
+      "Las inalámbricas se eligen por alcance, tasa de datos y consumo."
+    ],
+    "formulas": [
+      "CAN: bit dominante = 0; gana el identificador menor; bus diferencial CAN_H/CAN_L con terminación de 120 Ω.",
+      "LoRa: kilómetros con muy baja potencia; Wi-Fi: Internet pero alto consumo."
+    ],
+    "preguntas": [
+      "¿Qué nodo gana el bus si transmiten a la vez los ID 0x120 y 0x0F0?",
+      "¿Por qué CAN tolera mejor el ruido que UART?",
+      "¿Qué interfaz usaría para 20 sensores a 300 m?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T12",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 2,
+    "unidad_nombre": "Sistemas embebidos",
+    "sesion": "T12",
+    "titulo": "HMI, sensores, actuadores y lenguajes de programación",
+    "silabo": "2.4 Dispositivos HMI, sensores y actuadores · 2.5.1 Lenguajes de programación",
+    "ideas_clave": [
+      "El HMI va desde un LED hasta una app; se elige por información a mostrar, consumo y costo.",
+      "Sensores y actuadores se conectan por ADC, buses digitales, pulsos y PWM.",
+      "EXTI y NVIC atienden eventos; los timers generan PWM y bases de tiempo.",
+      "C domina el firmware; MicroPython y Rust ganan terreno según la aplicación."
+    ],
+    "formulas": [
+      "f_update = f_TIM / [(PSC + 1)(ARR + 1)]; ciclo de trabajo = CCR / (ARR + 1).",
+      "ADC 12 bits: mv = raw × 3300 / 4095.",
+      "16 líneas EXTI (EXTI0 = PA0, PB0…); HAL_GPIO_EXTI_Callback()."
+    ],
+    "preguntas": [
+      "Calcule PSC y ARR para PWM de 20 kHz con f_TIM = 84 MHz.",
+      "¿Cuántos mV vale 1 LSB del ADC de 12 bits con 3.3 V?",
+      "¿Cuándo preferiría MicroPython a C?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T13",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 2,
+    "unidad_nombre": "Sistemas embebidos",
+    "sesion": "T13",
+    "titulo": "Sistemas operativos para sistemas embebidos",
+    "silabo": "2.5.3 Sistemas operativos",
+    "ideas_clave": [
+      "Bare-metal es suficiente para tareas simples; un RTOS ordena varias tareas con plazos.",
+      "Linux embebido aporta red, archivos e interfaz gráfica, pero pierde determinismo.",
+      "Un RTOS ofrece planificación, colas, semáforos y tiempo.",
+      "La decisión depende de memoria, plazos y complejidad."
+    ],
+    "formulas": [
+      "Bare-metal → RTOS → Linux embebido: aumentan abstracción, memoria y latencia; baja el determinismo."
+    ],
+    "preguntas": [
+      "¿Qué ventaja tiene un RTOS frente a un superlazo con 6 tareas de distinto periodo?",
+      "¿Por qué no se usa Linux en el control de un airbag?",
+      "Nombre dos RTOS de código abierto."
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T14",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 3,
+    "unidad_nombre": "Funcionamiento de sistemas embebidos en tiempo real",
+    "sesion": "T14",
+    "titulo": "Conceptos de sistemas de tiempo real",
+    "silabo": "3.1 Conceptos introductorios",
+    "ideas_clave": [
+      "Tiempo real significa cumplir plazos de forma garantizada (determinismo).",
+      "Duros: fallar es catastrófico; firmes: el resultado tardío no sirve; blandos: se degrada.",
+      "Cada tarea se describe con T, C, D; la utilización total no puede pasar de 1.",
+      "El peor caso (WCET) se mide, no se supone."
+    ],
+    "formulas": [
+      "Tarea: periodo T, cómputo C, plazo D; U = Σ C/T ≤ 1.",
+      "WCET con DWT->CYCCNT (168 MHz → 5.95 ns por ciclo); se guarda el máximo, no el promedio."
+    ],
+    "preguntas": [
+      "Clasifique: reproductor de video, ABS, termostato de un invernadero.",
+      "Una tarea tiene C = 2 ms y T = 10 ms: ¿cuál es su utilización?",
+      "¿Por qué se mide el máximo y no el promedio?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T15",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 3,
+    "unidad_nombre": "Funcionamiento de sistemas embebidos en tiempo real",
+    "sesion": "T15",
+    "titulo": "Lenguajes y sistemas operativos de tiempo real",
+    "silabo": "3.2 Lenguajes y sistemas operativos en tiempo real",
+    "ideas_clave": [
+      "Algunos lenguajes incluyen concurrencia (Ada, Rust); en C se usa la API de un RTOS.",
+      "FreeRTOS y Zephyr son abiertos; ThreadX y SafeRTOS tienen certificaciones de seguridad.",
+      "Una tarea pasa por Running, Ready, Blocked y Suspended; el tick activa al planificador.",
+      "osDelayUntil() da periodos exactos para muestreo y control."
+    ],
+    "formulas": [
+      "Estados FreeRTOS: Running, Ready, Blocked, Suspended; tick de 1 ms (SysTick).",
+      "CubeMX: Middleware → FREERTOS (CMSIS_V2); SYS → Timebase: TIM6.",
+      "osDelayUntil() para periodos exactos."
+    ],
+    "preguntas": [
+      "¿Qué tarea corre si dos están listas con prioridades 3 y 5?",
+      "¿Por qué osDelayUntil y no osDelay para un lazo de control?",
+      "¿Para qué se mueve la base de tiempo de la HAL a TIM6?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T16",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 3,
+    "unidad_nombre": "Funcionamiento de sistemas embebidos en tiempo real",
+    "sesion": "T16",
+    "titulo": "Programación concurrente: comunicación y sincronización",
+    "silabo": "3.3 Programación concurrente",
+    "ideas_clave": [
+      "Las tareas se comunican con colas y se sincronizan con semáforos y notificaciones.",
+      "Una ISR debe ser corta: avisa con un semáforo y una tarea hace el trabajo.",
+      "Los recursos compartidos se protegen con mutex.",
+      "Evitar variables globales compartidas sin protección."
+    ],
+    "formulas": [
+      "Cola: osMessageQueuePut/Get · Semáforo: osSemaphoreRelease (ISR) / Acquire (tarea) · Mutex: osMutexAcquire/Release."
+    ],
+    "preguntas": [
+      "¿Qué pasa si el productor es más rápido que el consumidor y la cola se llena?",
+      "¿Por qué no se usa un mutex dentro de una ISR?",
+      "¿Cuándo usar semáforo contador en lugar de binario?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T17",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 3,
+    "unidad_nombre": "Funcionamiento de sistemas embebidos en tiempo real",
+    "sesion": "T17",
+    "titulo": "Problemas de la concurrencia",
+    "silabo": "3.3 Programación concurrente (condiciones de carrera, interbloqueo, inversión de prioridad)",
+    "ideas_clave": [
+      "Una operación de leer–modificar–escribir compartida necesita sección crítica o atomicidad.",
+      "El interbloqueo se previene tomando recursos siempre en el mismo orden y con timeouts.",
+      "La herencia de prioridad acota la inversión de prioridad.",
+      "Diseñar con dueños de recursos y mensajes reduce los errores."
+    ],
+    "formulas": [
+      "eventos++ son 3 instrucciones (LDR, ADDS, STR): sección crítica o atómico.",
+      "Coffman: exclusión mutua, retener y esperar, sin expropiación, espera circular.",
+      "Herencia de prioridad en el mutex (caso Mars Pathfinder, 1997)."
+    ],
+    "preguntas": [
+      "¿Por qué volatile no basta en el ejemplo del contador?",
+      "Proponga un orden de toma de mutex para evitar el interbloqueo del ejemplo.",
+      "¿Qué tarea \"hereda\" la prioridad y por cuánto tiempo?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T18",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 3,
+    "unidad_nombre": "Funcionamiento de sistemas embebidos en tiempo real",
+    "sesion": "T18",
+    "titulo": "Planificación: ejecutivo cíclico, prioridades fijas y round robin",
+    "silabo": "3.4 Planificación (scheduling)",
+    "ideas_clave": [
+      "El planificador decide qué tarea corre y cuándo.",
+      "El ejecutivo cíclico es una tabla fija: predecible pero rígido.",
+      "La prioridad fija expropiativa es la base de FreeRTOS; round robin reparte entre iguales.",
+      "EDF usa prioridades dinámicas por plazo."
+    ],
+    "formulas": [
+      "Ciclo mayor = mcm(Tᵢ); marco f divide al ciclo mayor y es ≥ el mayor C.",
+      "A(25), B(50), C(100) → ciclo mayor 100 ms, 4 marcos de 25 ms."
+    ],
+    "preguntas": [
+      "Tareas con T = 20, 40 y 80 ms: ¿ciclo mayor y marco posible?",
+      "¿Qué pasa en una planificación cooperativa si una tarea entra en un lazo infinito?",
+      "¿Qué es el quantum en round robin?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T19",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 3,
+    "unidad_nombre": "Funcionamiento de sistemas embebidos en tiempo real",
+    "sesion": "T19",
+    "titulo": "RMS, EDF y análisis de planificabilidad",
+    "silabo": "3.4 Planificación · aplicaciones de control y biomédicas",
+    "ideas_clave": [
+      "RMS da más prioridad a la tarea de periodo más corto.",
+      "Liu y Layland es una prueba suficiente: U ≤ n(2^(1/n) − 1).",
+      "El análisis de tiempo de respuesta es exacto para prioridades fijas.",
+      "EDF aprovecha toda la CPU (U ≤ 1) pero es más difícil de implementar y degrada mal."
+    ],
+    "formulas": [
+      "Liu y Layland: U ≤ n(2^(1/n) − 1) → 0.828 (n = 2), 0.780 (n = 3), 0.693 (n → ∞).",
+      "Rᵢ = Cᵢ + Σ ⌈Rᵢ/Tⱼ⌉·Cⱼ (iterar hasta converger; planificable si Rᵢ ≤ Dᵢ).",
+      "EDF: planificable si U ≤ 1."
+    ],
+    "preguntas": [
+      "Tareas (1, 3) y (1, 5): ¿son planificables con RMS?",
+      "Calcule R para T2 (C = 2, T = 6) con T1 (1, 4) de mayor prioridad.",
+      "¿Qué tarea del ECG tendría la prioridad más alta y por qué?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T20",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 3,
+    "unidad_nombre": "Funcionamiento de sistemas embebidos en tiempo real",
+    "sesion": "T20",
+    "titulo": "Tiempo real conectado: ESP32, Wi-Fi y la nube",
+    "silabo": "3.4 Planificación aplicada · aplicaciones de automatización e IoT",
+    "ideas_clave": [
+      "El ESP32 integra Wi-Fi, BLE y FreeRTOS en dos núcleos.",
+      "La comunicación con la nube es tiempo real blando: va en tareas de baja prioridad.",
+      "Firebase se lee y escribe con peticiones HTTPS sobre nodos JSON.",
+      "Las credenciales van en un archivo aparte y la base con reglas de acceso."
+    ],
+    "formulas": [
+      "ESP32: núcleo 0 → Wi-Fi/red; núcleo 1 → aplicación; FreeRTOS integrado.",
+      "Firebase RTDB: GET/PUT HTTPS sobre nodos JSON; credenciales en secrets.py."
+    ],
+    "preguntas": [
+      "¿Por qué no poner el lazo de control en la misma tarea que la petición HTTP?",
+      "¿Qué ventaja tiene guardar las credenciales en secrets.py?",
+      "¿Qué protocolo usaría para recibir cambios al instante?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T21",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 4,
+    "unidad_nombre": "Evaluación y certificación de los sistemas embebidos",
+    "sesion": "T21",
+    "titulo": "Evaluación y certificación: conceptos y entidades normalizadoras",
+    "silabo": "4.1 Conceptos introductorios · 4.2 Entidades normalizadoras",
+    "ideas_clave": [
+      "Verificación y validación las hace el fabricante; la certificación la emite un tercero acreditado.",
+      "Se certifica por seguridad, acceso al mercado, compatibilidad y responsabilidad legal.",
+      "ISO e IEC elaboran las normas internacionales; CENELEC, ETSI, ANSI y UL las regionales.",
+      "En Ecuador: INEN norma, SAE acredita, ARCOTEL homologa radios y ARCSA registra dispositivos médicos."
+    ],
+    "formulas": [
+      "Verificación: ¿se construyó bien? Validación: ¿se construyó lo correcto? Certificación: tercero acreditado.",
+      "Ecuador: INEN norma, SAE acredita, ARCOTEL homologa radio, ARCSA registra dispositivos médicos."
+    ],
+    "preguntas": [
+      "¿Cuál es la diferencia entre verificación y validación?",
+      "¿Qué entidad ecuatoriana homologa un módulo LoRa o Wi-Fi?",
+      "¿Quién acredita a un laboratorio de ensayos en Ecuador?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T22",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 4,
+    "unidad_nombre": "Evaluación y certificación de los sistemas embebidos",
+    "sesion": "T22",
+    "titulo": "Estándares y normativas para sistemas embebidos",
+    "silabo": "4.3 Estándares y normativas",
+    "ideas_clave": [
+      "IEC 61508 es la norma madre; cada sector tiene su derivada (ISO 26262, IEC 62304, EN 50128, DO-178C).",
+      "Casi todo producto necesita EMC, seguridad eléctrica, RoHS y, si tiene radio, normas de radio.",
+      "MISRA C reduce errores del lenguaje C con reglas verificables.",
+      "Las normas exigen un proceso trazable, documentado con evidencias."
+    ],
+    "formulas": [
+      "IEC 61508 (madre) → ISO 26262 (automotriz), IEC 62304 (software médico), EN 50128 (ferroviario), DO-178C (aeronáutico).",
+      "EMC: IEC 61000-4-2 (ESD), 61000-4-4 (ráfagas), CISPR; MISRA C:2012 (p. ej., regla 21.3: sin malloc)."
+    ],
+    "preguntas": [
+      "¿Qué norma aplica al software de un monitor de ECG?",
+      "¿Qué ensayo EMC verifica la resistencia a una descarga electrostática?",
+      "¿Por qué MISRA prohíbe malloc?"
+    ],
+    "normas": [
+      "DO-178C",
+      "EN 50128",
+      "IEC 61000-4-2",
+      "IEC 61508",
+      "IEC 62304",
+      "ISO 26262",
+      "MISRA C:2012"
+    ],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T23",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 4,
+    "unidad_nombre": "Evaluación y certificación de los sistemas embebidos",
+    "sesion": "T23",
+    "titulo": "Categorías, niveles de integridad y entidades certificadoras",
+    "silabo": "4.3.1 Categorías y niveles · 4.4 Entidades certificadoras",
+    "ideas_clave": [
+      "El nivel de integridad sale del análisis de riesgo: SIL, ASIL, clase o DAL según el sector.",
+      "FMEA prioriza las fallas con NPR = S × O × D y define acciones.",
+      "La certificación la emite un organismo acreditado tras revisar el expediente y ensayar el producto.",
+      "En Ecuador intervienen INEN, SAE, ARCOTEL y ARCSA."
+    ],
+    "formulas": [
+      "SIL 1–4 (IEC 61508), ASIL A–D (ISO 26262), clases A–C (IEC 62304), DAL E–A (DO-178C).",
+      "FMEA: NPR = S × O × D (cada uno de 1 a 10)."
+    ],
+    "preguntas": [
+      "¿Qué clase IEC 62304 tiene el software de una bomba de insulina?",
+      "Calcule el NPR de una falla con S = 9, O = 2, D = 5.",
+      "¿Qué entidad homologaría el nodo LoRa del integrador?"
+    ],
+    "normas": [
+      "DO-178C",
+      "IEC 61508",
+      "IEC 62304",
+      "ISO 26262"
+    ],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T24",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 4,
+    "unidad_nombre": "Evaluación y certificación de los sistemas embebidos",
+    "sesion": "T24",
+    "titulo": "Verificación y validación del sistema embebido",
+    "silabo": "4.3 · 4.4 aplicados al trabajo integrador",
+    "ideas_clave": [
+      "Cada etapa del diseño tiene una prueba asociada (modelo V).",
+      "Se combinan revisión, análisis estático, pruebas unitarias, de integración y de sistema.",
+      "La matriz de trazabilidad une requisitos, pruebas y evidencias.",
+      "El video y el informe muestran el proceso, no solo el resultado."
+    ],
+    "formulas": [
+      "Modelo V: cada etapa de diseño tiene su prueba (unitaria, integración, sistema, aceptación).",
+      "Matriz de trazabilidad: requisito → prueba → evidencia."
+    ],
+    "preguntas": [
+      "¿Qué diferencia una prueba de integración de una de sistema?",
+      "¿Qué es una prueba HIL?",
+      "¿Qué tres elementos tiene cada fila de la matriz de trazabilidad?"
+    ],
+    "normas": [],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  },
+  {
+    "codigo": "SD2-T25",
+    "materia": "sistemas_digitales_2",
+    "materia_nombre": "Sistemas Digitales II",
+    "unidad": 4,
+    "unidad_nombre": "Evaluación y certificación de los sistemas embebidos",
+    "sesion": "T25",
+    "titulo": "Defensa del trabajo integrador y cierre del ciclo",
+    "silabo": "Trabajo integrador: prototipo (10) · video e informe (10) · repaso para el examen",
+    "ideas_clave": [
+      "Las cuatro unidades en una línea: FPGA y VHDL (hardware reconfigurable), sistemas embebidos (STM32, interfaces, HMI), tiempo real (RTOS, concurrencia, planificación) y certificación (normas, niveles, evidencias).",
+      "La defensa demuestra el prototipo y justifica la norma y el nivel de integridad del sistema.",
+      "El examen del segundo parcial combina VHDL, STM32, planificabilidad y certificación."
+    ],
+    "formulas": [
+      "Ejercicios tipo examen: FSM detectora de 101 (Mealy) + testbench; TIM3 a 84 MHz para 10 kHz (PSC = 0, ARR = 8399, CCR = 2940 para 35 %); RMS con (1,5), (2,8), (3,20); clase IEC 62304 de un dispositivo."
+    ],
+    "preguntas": [
+      "Escriba la FSM de Mealy que detecta la secuencia 101 y su testbench.",
+      "Calcule PSC y ARR de TIM3 (84 MHz) para un PWM de 10 kHz y CCR para 35 %.",
+      "Tareas (1, 5), (2, 8), (3, 20): ¿son planificables con RMS? Calcule R de la tercera.",
+      "¿Qué clase IEC 62304 y qué entidad ecuatoriana aplican a un monitor de signos vitales con Wi-Fi?"
+    ],
+    "normas": [
+      "IEC 62304"
+    ],
+    "fuente": "Guía de estudio por sesión — Sistemas Digitales II, período 69, Ing. Luis Javier Serpa Andrade (UPS)"
+  }
+]
