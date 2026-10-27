@@ -87,10 +87,10 @@ void main() {
     expect(find.widgetWithText(Chip, 'IPC-2221B'), findsOneWidget);
   });
 
-  testWidgets('LS-bot y Favoritos explican que llegan después y llevan a Fichas', (tester) async {
+  testWidgets('LS-bot explica que llega después y lleva a Fichas', (tester) async {
     await abrirApp(tester, servidor, token: _token);
 
-    await tocar(tester, find.text('Favoritos'));
+    await tocar(tester, find.widgetWithText(NavigationDestination, 'LS-bot'));
     expect(find.text('Disponible en la siguiente versión'), findsOneWidget);
 
     await tocar(tester, find.text('Ir a Fichas'));

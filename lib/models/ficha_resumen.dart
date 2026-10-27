@@ -33,6 +33,19 @@ class FichaResumen {
     titulo: json['titulo'] as String,
     normas: listaDeTextos(json['normas']),
   );
+
+  /// Inverso de `fromJson`: así se guarda en Hive (favoritos y caché).
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'codigo': codigo,
+    'materia': materia,
+    'materia_nombre': materiaNombre,
+    'unidad': unidad,
+    'unidad_nombre': unidadNombre,
+    'sesion': sesion,
+    'titulo': titulo,
+    'normas': normas,
+  };
 }
 
 /// Convierte una lista JSON (o null) en `List<String>`.

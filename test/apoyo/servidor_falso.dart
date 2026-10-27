@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
@@ -6,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:lsbot/main.dart';
+import 'package:lsbot/repositories/fichas_repository.dart';
 import 'package:lsbot/services/api_client.dart';
 import 'package:lsbot/services/token_storage.dart';
 
@@ -31,6 +34,9 @@ class ServidorFalso implements HttpClientAdapter {
   /// `fallasFichas` veces.
   int? codigoErrorFichas;
   int fallasFichas = 0;
+
+  /// Con `true`, toda petición falla como si no hubiera red.
+  bool sinConexion = false;
 
   /// Dudas guardadas; `autor_email` decide `es_mia` según el token.
   List<Map<String, dynamic>> dudas = [];
@@ -106,6 +112,7 @@ class ServidorFalso implements HttpClientAdapter {
   @override
   Future<ResponseBody> fetch(RequestOptions o, Stream<Uint8List>? cuerpo, Future<void>? cancelar) async {
     peticiones.add(o);
+    if (sinConexion) throw DioException.connectionError(requestOptions: o, reason: 'Sin red (prueba)');
     final texto = cuerpo == null ? '' : utf8.decode((await cuerpo.toList()).expand((x) => x).toList());
     final ruta = o.path;
 
@@ -219,10 +226,28 @@ ApiClient clienteFalso(HttpClientAdapter servidor) =>
 /// Abre la app completa contra el servidor falso. Con `token`, empieza con
 /// una sesión guardada (como si la persona ya hubiera entrado antes).
 Future<void> abrirApp(WidgetTester tester, ServidorFalso servidor, {String? token}) async {
+  await tester.runAsync(prepararHive);
   FlutterSecureStorage.setMockInitialValues({'access_token': ?token});
   registrarDependencias(api: clienteFalso(servidor), almacen: TokenStorage());
   await tester.pumpWidget(const LsBotApp());
   await tester.pumpAndSettle();
+}
+
+bool _hiveIniciado = false;
+
+/// Hive en un directorio temporal, con las cajas de la app vacías en cada
+/// prueba. Se abren aquí y en memoria (`bytes`): una escritura a disco hecha
+/// dentro del reloj falso de `testWidgets` nunca termina y bloquearía la
+/// prueba siguiente. La app las encuentra ya abiertas (el falso /usuarios/me
+/// siempre responde id 1). La prueba de reinicio usa archivos reales.
+Future<void> prepararHive() async {
+  if (!_hiveIniciado) {
+    Hive.init(Directory.systemTemp.createTempSync('lsbot_hive').path);
+    _hiveIniciado = true;
+  }
+  await Hive.close();
+  await Hive.openBox<Map>(FichasRepository.nombreCaja, bytes: Uint8List(0));
+  await Hive.openBox<Map>('favoritos_1', bytes: Uint8List(0));
 }
 
 /// Entre pruebas, GetX debe empezar de cero.
