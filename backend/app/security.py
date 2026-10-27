@@ -11,7 +11,9 @@ from .config import obtener_configuracion
 from .db import obtener_sesion
 from .models import Usuario
 
-esquema_oauth2 = OAuth2PasswordBearer(tokenUrl="/usuarios/token")
+# auto_error=False: sin token, FastAPI no responde «Not authenticated»; lo decide
+# `usuario_actual` con el mismo 401 en español que un token inválido.
+esquema_oauth2 = OAuth2PasswordBearer(tokenUrl="/usuarios/token", auto_error=False)
 
 CREDENCIALES_INVALIDAS = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
@@ -37,7 +39,9 @@ def crear_token(usuario_id: int) -> str:
     return jwt.encode({"sub": str(usuario_id), "exp": vence}, cfg.secret_key, algorithm=cfg.algoritmo_jwt)
 
 
-def usuario_actual(token: str = Depends(esquema_oauth2), sesion: Session = Depends(obtener_sesion)) -> Usuario:
+def usuario_actual(token: str | None = Depends(esquema_oauth2), sesion: Session = Depends(obtener_sesion)) -> Usuario:
+    if not token:
+        raise CREDENCIALES_INVALIDAS
     cfg = obtener_configuracion()
     try:
         datos = jwt.decode(token, cfg.secret_key, algorithms=[cfg.algoritmo_jwt])
