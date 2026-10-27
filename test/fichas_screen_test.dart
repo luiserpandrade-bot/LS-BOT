@@ -80,7 +80,8 @@ void main() {
 
     await tocar(tester, find.text('Ancho de pistas en PCB'));
 
-    expect(servidor.peticiones.last.path, '/fichas/1');
+    // El detalle pide la ficha y, en paralelo, sus dudas.
+    expect(servidor.peticiones.map((o) => o.path), containsAll(['/fichas/1', '/fichas/1/dudas']));
     expect(find.text('Ideas clave'), findsOneWidget);
     expect(find.text('Preguntas de refuerzo'), findsOneWidget);
     expect(find.widgetWithText(Chip, 'IPC-2221B'), findsOneWidget);

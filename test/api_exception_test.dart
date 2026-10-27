@@ -69,7 +69,8 @@ void main() {
     final e429 = await _error(_Respuesta(429, 'Límite'));
     final e503 = await _error(_Respuesta(503));
 
-    expect(e403.mensaje, ApiException.mensajeSinPermiso);
+    expect(e403.mensaje, 'Solo el autor puede modificar o borrar esta duda');
+    expect((await _error(_Respuesta(403))).mensaje, ApiException.mensajeSinPermiso);
     expect(e404.mensaje, 'La ficha no existe');
     expect(e429.mensaje, ApiException.mensajeDemasiadas);
     expect(e503.mensaje, ApiException.mensajeServidor);

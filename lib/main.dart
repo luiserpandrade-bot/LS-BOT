@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'controllers/auth_controller.dart';
+import 'controllers/dudas_controller.dart';
 import 'controllers/fichas_controller.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'services/api_client.dart';
 import 'services/auth_service.dart';
+import 'services/dudas_service.dart';
 import 'services/fichas_service.dart';
 import 'services/token_storage.dart';
 import 'theme/app_theme.dart';
@@ -25,9 +27,11 @@ void registrarDependencias({ApiClient? api, TokenStorage? almacen}) {
   Get.put(almacen ?? TokenStorage(), permanent: true);
   Get.put(AuthService(cliente), permanent: true);
   Get.put(FichasService(cliente), permanent: true);
-  // Se crea al abrir la lista y se descarta al cerrar sesión; `fenix` lo
-  // vuelve a crear en la siguiente sesión.
+  Get.put(DudasService(cliente), permanent: true);
+  // Se crean al abrir la lista o el detalle y se descartan al cerrar sesión;
+  // `fenix` los vuelve a crear en la siguiente sesión.
   Get.lazyPut(() => FichasController(), fenix: true);
+  Get.lazyPut(() => DudasController(), fenix: true);
   // Al crearse comprueba si hay un token guardado (restaurarSesion).
   Get.put(AuthController(), permanent: true);
 }
