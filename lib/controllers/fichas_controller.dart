@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../models/ficha_detalle.dart';
 import '../models/ficha_resumen.dart';
 import '../models/materia.dart';
+import '../repositories/fichas_repository.dart';
 import '../services/api_client.dart';
 import '../services/fichas_service.dart';
 
@@ -10,10 +11,14 @@ import '../services/fichas_service.dart';
 enum EstadoCarga { cargando, vacio, error, exito }
 
 /// Lista de fichas (filtros, búsqueda y estado) y detalle de la ficha abierta.
+/// La lista pasa por `FichasRepository` (servidor primero, caché de respaldo).
 class FichasController extends GetxController {
-  FichasController({FichasService? servicio}) : _servicio = servicio ?? Get.find<FichasService>();
+  FichasController({FichasService? servicio, FichasRepository? repositorio})
+    : _servicio = servicio ?? Get.find<FichasService>(),
+      _repositorio = repositorio ?? Get.find<FichasRepository>();
 
   final FichasService _servicio;
+  final FichasRepository _repositorio;
 
   final RxList<Materia> materias = Materia.conocidas.toList().obs;
 
@@ -24,6 +29,11 @@ class FichasController extends GetxController {
   final RxList<FichaResumen> fichas = <FichaResumen>[].obs;
   final Rx<EstadoCarga> estado = EstadoCarga.cargando.obs;
   final RxString mensajeError = ''.obs;
+
+  /// Con valor solo cuando la lista visible vino de la caché: es la hora de
+  /// la última carga exitosa de ese filtro.
+  final Rxn<DateTime> sincronizadoCache = Rxn<DateTime>();
+  bool get desdeCache => sincronizadoCache.value != null;
 
   final Rxn<FichaDetalle> detalle = Rxn<FichaDetalle>();
   final Rx<EstadoCarga> estadoDetalle = EstadoCarga.cargando.obs;
@@ -67,13 +77,15 @@ class FichasController extends GetxController {
     estado.value = EstadoCarga.cargando;
     mensajeError.value = '';
     try {
-      final lista = await _servicio.listar(materia: materiaElegida.value, q: busqueda.value);
+      final (lista, sincronizado) = await _repositorio.listar(materia: materiaElegida.value, q: busqueda.value);
       if (numero != _cargaActual) return;
       fichas.assignAll(lista);
+      sincronizadoCache.value = sincronizado;
       estado.value = lista.isEmpty ? EstadoCarga.vacio : EstadoCarga.exito;
     } on ApiException catch (e) {
       if (numero != _cargaActual) return;
       fichas.clear();
+      sincronizadoCache.value = null;
       mensajeError.value = e.mensaje;
       estado.value = EstadoCarga.error;
     }

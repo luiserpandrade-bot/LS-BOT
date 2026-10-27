@@ -5,18 +5,21 @@ import '../services/api_client.dart';
 import '../services/auth_service.dart';
 import '../services/token_storage.dart';
 import 'dudas_controller.dart';
+import 'favoritos_controller.dart';
 import 'fichas_controller.dart';
 
 /// Estado de la sesión de toda la app. `usuario` es null cuando no hay sesión.
 class AuthController extends GetxController {
-  AuthController({ApiClient? api, AuthService? servicio, TokenStorage? almacen})
+  AuthController({ApiClient? api, AuthService? servicio, TokenStorage? almacen, FavoritosController? favoritos})
     : _api = api ?? Get.find<ApiClient>(),
       _servicio = servicio ?? Get.find<AuthService>(),
-      _almacen = almacen ?? Get.find<TokenStorage>();
+      _almacen = almacen ?? Get.find<TokenStorage>(),
+      _favoritos = favoritos ?? Get.find<FavoritosController>();
 
   final ApiClient _api;
   final AuthService _servicio;
   final TokenStorage _almacen;
+  final FavoritosController _favoritos;
 
   final Rxn<Usuario> usuario = Rxn<Usuario>();
   final RxBool cargando = false.obs;
@@ -74,8 +77,16 @@ class AuthController extends GetxController {
     final token = await _servicio.obtenerToken(email, password);
     _api.token = token;
     await _almacen.guardar(token);
-    usuario.value = await _servicio.perfil();
+    await _abrirSesion();
     avisoSesion.value = '';
+  }
+
+  /// GET /usuarios/me y la caja de favoritos de esa persona, antes de
+  /// mostrar Home.
+  Future<void> _abrirSesion() async {
+    final perfil = await _servicio.perfil();
+    await _favoritos.abrirParaUsuario(perfil.id);
+    usuario.value = perfil;
   }
 
   /// Al abrir la app: si hay un token guardado, comprueba con /usuarios/me
@@ -87,7 +98,7 @@ class AuthController extends GetxController {
       final guardado = await _almacen.leer();
       if (guardado == null) return;
       _api.token = guardado;
-      usuario.value = await _servicio.perfil();
+      await _abrirSesion();
     } on ApiException catch (e) {
       if (e.statusCode == 401) {
         await cerrarSesion();
@@ -111,11 +122,13 @@ class AuthController extends GetxController {
 
   /// Borra el token (seguro y en memoria) y el estado de las fichas y sus
   /// dudas: la próxima sesión crea controladores nuevos y carga desde cero.
+  /// Los favoritos solo se quitan de la pantalla; su caja sigue en disco.
   Future<void> cerrarSesion() async {
     await _almacen.borrar();
     _api.token = null;
     usuario.value = null;
     mensajeError.value = '';
+    _favoritos.cerrar();
     if (Get.isRegistered<FichasController>()) Get.delete<FichasController>(force: true);
     if (Get.isRegistered<DudasController>()) Get.delete<DudasController>(force: true);
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/favoritos_controller.dart';
 import '../controllers/fichas_controller.dart';
 import '../theme/app_theme.dart';
+import '../widgets/aviso_sin_conexion.dart';
 import '../widgets/cargando_view.dart';
 import '../widgets/error_view.dart';
 import '../widgets/ficha_card.dart';
@@ -19,6 +21,7 @@ class FichasScreen extends StatefulWidget {
 
 class _FichasScreenState extends State<FichasScreen> {
   final FichasController _fichas = Get.find<FichasController>();
+  final FavoritosController _favoritos = Get.find<FavoritosController>();
   final _texto = TextEditingController();
 
   @override
@@ -38,6 +41,12 @@ class _FichasScreenState extends State<FichasScreen> {
       appBar: AppBar(title: const Text('Fichas de estudio')),
       body: Column(
         children: [
+          // Fijo arriba mientras la lista visible venga de la caché.
+          Obx(() {
+            final sincronizado = _fichas.sincronizadoCache.value;
+            if (sincronizado == null) return const SizedBox.shrink();
+            return AvisoSinConexion(sincronizado: sincronizado, onReintentar: _fichas.recargar);
+          }),
           Padding(
             padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.sm),
             child: ValueListenableBuilder(
@@ -129,9 +138,13 @@ class _FichasScreenState extends State<FichasScreen> {
             separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
             itemBuilder: (context, i) {
               final ficha = lista[i];
-              return FichaCard(
-                ficha: ficha,
-                onTap: () => Get.to(() => FichaDetalleScreen(id: ficha.id, codigo: ficha.codigo)),
+              return Obx(
+                () => FichaCard(
+                  ficha: ficha,
+                  favorito: _favoritos.esFavorito(ficha.id),
+                  onFavorito: () => _favoritos.alternar(ficha),
+                  onTap: () => Get.to(() => FichaDetalleScreen(id: ficha.id, codigo: ficha.codigo)),
+                ),
               );
             },
           ),

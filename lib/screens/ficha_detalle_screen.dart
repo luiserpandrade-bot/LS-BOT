@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/dudas_controller.dart';
+import '../controllers/favoritos_controller.dart';
 import '../controllers/fichas_controller.dart';
 import '../models/ficha_detalle.dart';
 import '../theme/app_theme.dart';
@@ -25,6 +26,7 @@ class FichaDetalleScreen extends StatefulWidget {
 class _FichaDetalleScreenState extends State<FichaDetalleScreen> {
   final FichasController _fichas = Get.find<FichasController>();
   final DudasController _dudas = Get.find<DudasController>();
+  final FavoritosController _favoritos = Get.find<FavoritosController>();
 
   @override
   void initState() {
@@ -36,7 +38,19 @@ class _FichaDetalleScreenState extends State<FichaDetalleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.codigo)),
+      appBar: AppBar(
+        title: Text(widget.codigo),
+        actions: [
+          Obx(() {
+            final ficha = _fichas.detalle.value;
+            if (ficha == null || ficha.id != widget.id) return const SizedBox.shrink();
+            return BotonFavorito(
+              favorito: _favoritos.esFavorito(ficha.id),
+              onPressed: () => _favoritos.alternar(ficha),
+            );
+          }),
+        ],
+      ),
       body: Obx(() {
         switch (_fichas.estadoDetalle.value) {
           case EstadoCarga.cargando:

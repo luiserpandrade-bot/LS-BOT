@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'favoritos_screen.dart';
 import 'fichas_screen.dart';
 import 'perfil_screen.dart';
 import 'proximamente_screen.dart';
@@ -31,12 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
             descripcion: 'Aquí podrás preguntarle al asistente LS-bot, que responde con el contenido de las fichas.',
             onIrAFichas: _irAFichas,
           ),
-          ProximamenteScreen(
-            titulo: 'Favoritos',
-            icono: Icons.bookmark_border,
-            descripcion: 'Aquí verás las fichas que guardes como favoritas.',
-            onIrAFichas: _irAFichas,
-          ),
+          FavoritosScreen(onIrAFichas: _irAFichas),
           const PerfilScreen(),
         ],
       ),
