@@ -47,6 +47,13 @@ def test_sin_token_o_token_invalido_da_401(cliente):
     assert r.json()["detail"] == "No se pudo validar las credenciales"
 
 
+def test_sin_token_da_401_en_espanol(cliente):
+    r = cliente.get("/fichas/")
+    assert r.status_code == 401
+    assert r.json()["detail"] == "No se pudo validar las credenciales"
+    assert r.headers["www-authenticate"] == "Bearer"
+
+
 # ---------------- Fichas ----------------
 def test_fichas_sembradas_y_filtro_por_materia(cliente):
     cab = registrar_y_entrar(cliente)
