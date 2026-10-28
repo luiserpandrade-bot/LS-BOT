@@ -87,13 +87,15 @@ void main() {
     expect(find.widgetWithText(Chip, 'IPC-2221B'), findsOneWidget);
   });
 
-  testWidgets('LS-bot explica que llega después y lleva a Fichas', (tester) async {
+  testWidgets('la pestaña LS-bot abre el chat con tres preguntas sugeridas', (tester) async {
     await abrirApp(tester, servidor, token: _token);
 
     await tocar(tester, find.widgetWithText(NavigationDestination, 'LS-bot'));
-    expect(find.text('Disponible en la siguiente versión'), findsOneWidget);
+    expect(find.text('Disponible en la siguiente versión'), findsNothing);
+    expect(find.text('¡Hola! Soy LS-bot'), findsOneWidget);
+    expect(find.byType(ActionChip), findsNWidgets(3));
 
-    await tocar(tester, find.text('Ir a Fichas'));
+    await tocar(tester, find.widgetWithText(NavigationDestination, 'Fichas'));
     expect(find.text('Fichas de estudio'), findsOneWidget);
   });
 }

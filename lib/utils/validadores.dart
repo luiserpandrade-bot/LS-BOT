@@ -29,4 +29,10 @@ class Validadores {
     final largo = valor?.trim().length ?? 0;
     return (largo >= 5 && largo <= 500) ? null : 'La duda debe tener entre 5 y 500 caracteres';
   }
+
+  /// Pregunta a LS-bot: de 3 a 500 caracteres, sin contar espacios al inicio ni al final.
+  static String? pregunta(String? valor) {
+    final largo = valor?.trim().length ?? 0;
+    return (largo >= 3 && largo <= 500) ? null : 'La pregunta debe tener entre 3 y 500 caracteres';
+  }
 }

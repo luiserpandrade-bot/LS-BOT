@@ -12,6 +12,7 @@ class ApiException implements Exception {
   final int? statusCode;
 
   static const rutaLogin = '/usuarios/token';
+  static const rutaAsistente = '/asistente/';
 
   static const mensajeSinConexion = 'No hay conexión con el servidor. Revisa tu red y que el backend esté encendido.';
   static const mensajeTiempoAgotado = 'El servidor tardó demasiado en responder. Inténtalo de nuevo.';
@@ -60,7 +61,12 @@ class ApiException implements Exception {
         // El backend ya entrega `detail` como texto («Datos inválidos — campo: …»).
         return ApiException(detail ?? mensajeDatosInvalidos, statusCode: codigo);
       case 429:
-        return ApiException(mensajeDemasiadas, statusCode: codigo);
+      case 502:
+      case 504:
+        // El asistente explica el motivo en `detail` (límite gratuito de la IA,
+        // servicio de IA caído o lento); en las demás rutas, mensaje general.
+        if (ruta == rutaAsistente && detail != null) return ApiException(detail, statusCode: codigo);
+        if (codigo == 429) return ApiException(mensajeDemasiadas, statusCode: codigo);
     }
     if (codigo >= 500) return ApiException(mensajeServidor, statusCode: codigo);
     return ApiException('La solicitud no pudo completarse (código $codigo).', statusCode: codigo);

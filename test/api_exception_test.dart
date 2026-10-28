@@ -81,6 +81,17 @@ void main() {
     expect(e.mensaje, 'Email o contraseña incorrectos');
   });
 
+  test('en el asistente, 429, 502 y 504 muestran el detail del servidor; en otras rutas no', () async {
+    const limite = 'Se alcanzó el límite gratuito de consultas a la IA. Inténtalo más tarde.';
+    const ruta = ApiException.rutaAsistente;
+    expect((await _error(_Respuesta(429, limite), ruta: ruta)).mensaje, limite);
+    expect((await _error(_Respuesta(502, 'Sin IA'), ruta: ruta)).mensaje, 'Sin IA');
+    expect((await _error(_Respuesta(504, 'IA lenta'), ruta: ruta)).mensaje, 'IA lenta');
+    expect((await _error(_Respuesta(429), ruta: ruta)).mensaje, ApiException.mensajeDemasiadas);
+    expect((await _error(_Respuesta(429, limite))).mensaje, ApiException.mensajeDemasiadas);
+    expect((await _error(_Respuesta(502, 'Sin IA'))).mensaje, ApiException.mensajeServidor);
+  });
+
   test('tiempo agotado tiene su propio mensaje', () {
     final e = ApiException.desde(
       DioException(
