@@ -45,6 +45,24 @@ class ServidorFalso implements HttpClientAdapter {
   /// Si tiene valor, el próximo PATCH o DELETE de una duda responde ese código.
   int? codigoErrorDudas;
 
+  /// `modo` que devuelve POST /asistente/ ("gemini" o "reglas").
+  String modoAsistente = 'gemini';
+
+  /// Si tiene valor, POST /asistente/ responde ese código las próximas
+  /// `fallasAsistente` veces, con el mismo `detail` que el backend.
+  int? codigoErrorAsistente;
+  int fallasAsistente = 0;
+
+  static const _detallesAsistente = {
+    429: 'Se alcanzó el límite gratuito de consultas a la IA. Inténtalo más tarde.',
+    502: 'El servidor no pudo comunicarse con el servicio de IA.',
+    504: 'La IA tardó demasiado en responder. Inténtalo de nuevo.',
+  };
+
+  /// Cuerpos enviados a POST /asistente/, en orden.
+  List<Map> get peticionesAsistente =>
+      peticiones.where((o) => o.path == '/asistente/').map((o) => o.data as Map).toList();
+
   static Map<String, dynamic> duda(int id, int fichaId, String texto, String autorEmail, {bool editada = false}) => {
     'id': id,
     'ficha_id': fichaId,
@@ -141,6 +159,27 @@ class ServidorFalso implements HttpClientAdapter {
     if (usuario == null) return _error('No se pudo validar las credenciales', 401);
 
     if (ruta == '/usuarios/me') return _json({'id': 1, 'email': email!, 'nombre': usuario.nombre}, 200);
+    if (ruta == '/asistente/' && o.method == 'POST') {
+      // Mismas reglas que `PreguntaAsistente`: de 3 a 500 caracteres.
+      final b = jsonDecode(texto) as Map;
+      final pregunta = (b['pregunta'] as String? ?? '').trim();
+      if (pregunta.length < 3 || pregunta.length > 500) {
+        return _error('Datos inválidos — pregunta: String should have at least 3 characters', 422);
+      }
+      if (codigoErrorAsistente != null && fallasAsistente > 0) {
+        fallasAsistente--;
+        return _error(_detallesAsistente[codigoErrorAsistente] ?? 'Error forzado', codigoErrorAsistente!);
+      }
+      // La ficha de contexto, si la hay; si no, la primera.
+      final f = fichas.firstWhere((f) => f['id'] == b['ficha_id'], orElse: () => fichas.first);
+      return _json({
+        'respuesta': 'Respuesta de prueba según [${f['codigo']}].',
+        'modo': modoAsistente,
+        'fuentes': [
+          {'id': f['id'], 'codigo': f['codigo'], 'titulo': f['titulo']},
+        ],
+      }, 200);
+    }
     if (ruta == '/fichas/materias') {
       return _json([
         {'materia': 'diseno_electronico', 'materia_nombre': 'Diseño Electrónico', 'total_fichas': 14},
@@ -248,6 +287,7 @@ Future<void> prepararHive() async {
   await Hive.close();
   await Hive.openBox<Map>(FichasRepository.nombreCaja, bytes: Uint8List(0));
   await Hive.openBox<Map>('favoritos_1', bytes: Uint8List(0));
+  await Hive.openBox<Map>('chat_1', bytes: Uint8List(0));
 }
 
 /// Entre pruebas, GetX debe empezar de cero.

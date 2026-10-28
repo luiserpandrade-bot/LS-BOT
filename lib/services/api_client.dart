@@ -57,13 +57,19 @@ class ApiClient {
   Future<Response<dynamic>> get(String ruta, {Map<String, dynamic>? query}) =>
       _enviar(() => dio.get(ruta, queryParameters: query));
 
-  Future<Response<dynamic>> post(String ruta, {Object? data, bool formulario = false}) => _enviar(
-    () => dio.post(
-      ruta,
-      data: data,
-      options: formulario ? Options(contentType: Headers.formUrlEncodedContentType) : null,
-    ),
-  );
+  /// `tiempoRecepcion` amplía la espera solo en esa petición (la IA del
+  /// asistente puede tardar más que el resto de la API).
+  Future<Response<dynamic>> post(String ruta, {Object? data, bool formulario = false, Duration? tiempoRecepcion}) =>
+      _enviar(
+        () => dio.post(
+          ruta,
+          data: data,
+          options: Options(
+            contentType: formulario ? Headers.formUrlEncodedContentType : null,
+            receiveTimeout: tiempoRecepcion,
+          ),
+        ),
+      );
 
   Future<Response<dynamic>> patch(String ruta, {Object? data}) => _enviar(() => dio.patch(ruta, data: data));
 

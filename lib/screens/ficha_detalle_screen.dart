@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/asistente_controller.dart';
 import '../controllers/dudas_controller.dart';
 import '../controllers/favoritos_controller.dart';
 import '../controllers/fichas_controller.dart';
+import '../controllers/navegacion_controller.dart';
 import '../models/ficha_detalle.dart';
 import '../theme/app_theme.dart';
 import '../widgets/cargando_view.dart';
@@ -35,9 +37,28 @@ class _FichaDetalleScreenState extends State<FichaDetalleScreen> {
     _dudas.cargar(widget.id);
   }
 
+  /// Fija la ficha como contexto del chat y vuelve a Home en la pestaña LS-bot.
+  void _preguntarALsBot(FichaDetalle ficha) {
+    Get.find<AsistenteController>().fijarFicha(ficha);
+    Get.find<NavegacionController>().irA(NavegacionController.lsBot);
+    Get.until((ruta) => ruta.isFirst);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Siempre a mano mientras se lee la ficha, sin mover su contenido.
+      floatingActionButton: Obx(() {
+        final ficha = _fichas.detalle.value;
+        if (_fichas.estadoDetalle.value != EstadoCarga.exito || ficha == null || ficha.id != widget.id) {
+          return const SizedBox.shrink();
+        }
+        return FloatingActionButton.extended(
+          onPressed: () => _preguntarALsBot(ficha),
+          icon: const Icon(Icons.smart_toy_outlined),
+          label: const Text('Preguntar a LS-bot sobre esta ficha'),
+        );
+      }),
       appBar: AppBar(
         title: Text(widget.codigo),
         actions: [
@@ -83,7 +104,9 @@ class _Contenido extends StatelessWidget {
       onRefresh: dudas.recargar,
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(AppSpacing.lg),
+        // Abajo queda espacio (alto del botón flotante, 56, más margen) para
+        // que no tape la última duda.
+        padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, 56 + AppSpacing.xxl),
         children: [
           Text(ficha.titulo, style: tema.textTheme.headlineSmall),
           const SizedBox(height: AppSpacing.sm),

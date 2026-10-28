@@ -4,22 +4,34 @@ import '../models/usuario.dart';
 import '../services/api_client.dart';
 import '../services/auth_service.dart';
 import '../services/token_storage.dart';
+import 'asistente_controller.dart';
 import 'dudas_controller.dart';
 import 'favoritos_controller.dart';
 import 'fichas_controller.dart';
+import 'navegacion_controller.dart';
 
 /// Estado de la sesión de toda la app. `usuario` es null cuando no hay sesión.
 class AuthController extends GetxController {
-  AuthController({ApiClient? api, AuthService? servicio, TokenStorage? almacen, FavoritosController? favoritos})
-    : _api = api ?? Get.find<ApiClient>(),
-      _servicio = servicio ?? Get.find<AuthService>(),
-      _almacen = almacen ?? Get.find<TokenStorage>(),
-      _favoritos = favoritos ?? Get.find<FavoritosController>();
+  AuthController({
+    ApiClient? api,
+    AuthService? servicio,
+    TokenStorage? almacen,
+    FavoritosController? favoritos,
+    AsistenteController? asistente,
+    NavegacionController? navegacion,
+  }) : _api = api ?? Get.find<ApiClient>(),
+       _servicio = servicio ?? Get.find<AuthService>(),
+       _almacen = almacen ?? Get.find<TokenStorage>(),
+       _favoritos = favoritos ?? Get.find<FavoritosController>(),
+       _asistente = asistente ?? Get.find<AsistenteController>(),
+       _navegacion = navegacion ?? Get.find<NavegacionController>();
 
   final ApiClient _api;
   final AuthService _servicio;
   final TokenStorage _almacen;
   final FavoritosController _favoritos;
+  final AsistenteController _asistente;
+  final NavegacionController _navegacion;
 
   final Rxn<Usuario> usuario = Rxn<Usuario>();
   final RxBool cargando = false.obs;
@@ -81,11 +93,12 @@ class AuthController extends GetxController {
     avisoSesion.value = '';
   }
 
-  /// GET /usuarios/me y la caja de favoritos de esa persona, antes de
-  /// mostrar Home.
+  /// GET /usuarios/me y las cajas de favoritos y de chat de esa persona,
+  /// antes de mostrar Home.
   Future<void> _abrirSesion() async {
     final perfil = await _servicio.perfil();
     await _favoritos.abrirParaUsuario(perfil.id);
+    await _asistente.abrirParaUsuario(perfil.id);
     usuario.value = perfil;
   }
 
@@ -123,12 +136,15 @@ class AuthController extends GetxController {
   /// Borra el token (seguro y en memoria) y el estado de las fichas y sus
   /// dudas: la próxima sesión crea controladores nuevos y carga desde cero.
   /// Los favoritos solo se quitan de la pantalla; su caja sigue en disco.
+  /// El chat con LS-bot sí se borra del disco: son preguntas de la persona.
   Future<void> cerrarSesion() async {
     await _almacen.borrar();
     _api.token = null;
     usuario.value = null;
     mensajeError.value = '';
     _favoritos.cerrar();
+    await _asistente.cerrar();
+    _navegacion.irA(NavegacionController.fichas);
     if (Get.isRegistered<FichasController>()) Get.delete<FichasController>(force: true);
     if (Get.isRegistered<DudasController>()) Get.delete<DudasController>(force: true);
   }
